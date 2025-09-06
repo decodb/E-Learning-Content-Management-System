@@ -1,66 +1,89 @@
-// Error Status Codes
-const BAD_REQUEST = 400;
-const UNAUTHORIZED = 401;
-const FORBIDDEN = 403;
-const NOT_FOUND = 404;
-const CONFLICT = 409;
-const UNSUPPORTED_MEDIA_TYPE = 415;
-const INTERNAL_SERVER_ERROR = 500;
+import nodemailer from 'nodemailer';
 
-// Success Status Codes
-const OK = 200;
-const CREATED = 201;
-const NO_CONTENT = 204;
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+})
 
-function sendOk(res, data, message = "Success") {
-  return res.status(OK).json({ success: true, message, data });
+export const sendAdmin = async(email, password) => {
+    await transporter.sendMail({
+        from: `"no-reply" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: 'E-Learning Software. ',
+        html: _buildAdminInviteHTML(email, password)
+    })
 }
 
-function sendCreated(res, data, accessToken , message = "Created") {
-  return res.status(CREATED).json({ success: true, message, accessToken, data });
-}
+export const _buildAdminInviteHTML = (email, password) => {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Verify Your Email - E-Learning Software.</title>
+    </head>
+    <body style="margin:0; padding:0; font-family: Poppins, sans-serif; background-color: #f9f9f9;">
 
-function sendNoContent(res) {
-  return res.sendStatus(NO_CONTENT);
-}
+      <table align="center" cellpadding="0" cellspacing="0" width="100%" 
+            style="max-width:600px; margin:10px auto; background: #ffffff; 
+                    border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08); 
+                    overflow:hidden; text-align:center;">
+        
+        <!-- Header -->
+        <tr>
+          <td style="padding:20px; display:flex; align-items:center; justify-content:center; background-color: #f4f4f4;">
+            <img src="/images/logo.png" alt="Tutor Connect Logo" 
+                style="height:40px; margin-right:10px;">
+            <span style="font-size:20px; font-weight:bold; color:#00412E;">E-Leaning Software Team</span>
+          </td>
+        </tr>
 
-function sendBadRequest(res, message = "Bad Request") {
-  return res.status(BAD_REQUEST).json({ success: false, message });
-}
+        <!-- Title -->
+        <tr>
+          <td style="padding:32px 24px 16px 24px;">
+            <h3 style="margin:0; font-size:22px; font-weight:500; color: #333;">
+              🎉 Congratulations on Joining E-Learning team! 🎉
+            </h3>
+          </td>
+        </tr>
 
-function sendUnauthorized(res, message = "Unauthorized") {
-  return res.status(UNAUTHORIZED).json({ success: false, message });
-}
+        <!-- Message -->
+        <tr>
+            <td style="padding:0 32px 16px 32px;">
+                <p style="font-size:15px; line-height:1.6; color: #555; margin:0;">
+                    Welcome to <strong>E-Learning Software</strong>! <br><br>
+                    Your account has been successfully created. You can use the following credentials to log in:
+                </p>
+                <ul style="font-size:15px; line-height:1.6; color: #555; margin:8px 0 0 0; padding-left: 20px; list-style-type:none;">
+                    <li><strong>Email:</strong> ${email}</li>
+                    <li><strong>Password:</strong> ${password}</li>
+                </ul>
+                <p style="font-size:15px; line-height:1.6; color: #555; margin:16px 0 0 0;">
+                    Please use your <strong>email address</strong> to log in. We recommend changing your password after your first login to keep your account secure.
+                </p>
+            </td>
+        </tr>
 
-function sendForbidden(res, message = "Forbidden") {
-  return res.status(FORBIDDEN).json({ success: false, message });
-}
 
-function sendNotFound(res, message = "Not Found") {
-  return res.status(NOT_FOUND).json({ success: false, message });
-}
+        <!-- Footer -->
+        <tr>
+          <td style="padding:20px; border-top:1px solid #ddd; background:#f9f9f9; font-size:12px; color:#888;">
+            <p style="margin:0; font-size:13px;">
+              E-Learning Software, a software to managing your leaning content.
+            </p>
+            <p style="margin:6px 0 0 0;">&copy; 2025 E-Learning. All rights reserved.</p>
+          </td>
+        </tr>
 
-function sendConflict(res, message = "Conflict") {
-  return res.status(CONFLICT).json({ success: false, message });
-}
+      </table>
 
-function sendUnsupportedMediaType(res, message = "Unsupported Media Type") {
-  return res.status(UNSUPPORTED_MEDIA_TYPE).json({ success: false, message });
-}
+    </body>
+    </html>
 
-const sendInternalServerError = ( res, message = "Internal Server Error") => {
-  return res.status(INTERNAL_SERVER_ERROR).json({ success: false, message });
-};
-
-export {
-  sendOk,
-  sendCreated,
-  sendNoContent,
-  sendBadRequest,
-  sendUnauthorized,
-  sendForbidden,
-  sendNotFound,
-  sendConflict,
-  sendUnsupportedMediaType,
-  sendInternalServerError
+  `;
 };
