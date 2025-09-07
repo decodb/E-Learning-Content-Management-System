@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
   --color-orange: #F56E0F;
+  --color-orange-light: #FFD6B8;
+  --color-orange-lighter: #ffeee4; 
   --color-black: #1B1B1E;
   --color-grey: #262626;
   --color-light-grey: #878787;
@@ -15,5 +17,78 @@
 }
 
 body {
-    font-family:  "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif;
+}
+
+a {
+    list-style: none;
+    text-decoration: none;
+}
+
+li {
+    text-decoration: none;
+    color: inherit;
+}
+
+input {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: 1px solid var(--color-light-grey);
+  background-color: var(--color-white);      
+  font-size: 1rem;
+  font-weight: 500;           /* slightly bold for clarity */
+  letter-spacing: 0.5px;
+  color: var(--color-light-grey);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+input:focus {
+  border-color: var(--color-orange); 
+  box-shadow: 0 0 0 2px rgba(245, 110, 15, 0.2); 
+}
+
+input::placeholder {
+  font-size: 0.875rem;
+  color: var(--color-light-grey);
+  opacity: 0.8;
+}
+
+input::placeholder {
+  color: var(--color-light-grey);
+  opacity: 0.8;
+}
+
+.btn {
+  padding: 0.65rem 1rem;
+  border-radius: 5px;
+  background-color: var(--color-orange);
+  color: var(--color-white);
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  cursor: pointer;
+}
+
+.btn:disabled {
+  background: var(--color-orange-light);
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid transparent; 
+  border-top-color: #fff;          
+  border-right-color: #fff;        
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

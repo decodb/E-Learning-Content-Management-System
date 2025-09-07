@@ -1,0 +1,99 @@
+section {
+    background-color: var(--color-orange-lighter);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section .container {
+    background-color: var(--color-white);
+    max-width: 27rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    border-radius: 10px;
+}
+
+section .container .header {
+    display: flex;
+    gap: 0.85rem;
+    justify-content: center;
+    align-items: center;
+}
+
+section .container .header ion-icon {
+    color: var(--color-orange);
+    font-size: 1.5rem;
+}
+
+section .container .header h2 {
+    font-weight: 500;
+}
+
+section .container .text h2 {
+    font-weight: 600;
+    font-size: 2rem;
+    text-align: center;
+}
+
+section .container .text p {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-light-grey);
+}
+
+section .container form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+section .container form .row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+section .container form .row label {
+    font-weight: 500;
+}
+
+section .container form .row a {
+    text-align: right;
+    font-size: 0.85rem;
+    color: var(--color-orange);
+    text-decoration: underline;
+}
+
+section .container form .row .field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--color-light-grey);
+    border-radius: 5px;
+    padding: 0 0.5rem 0 0;
+}
+
+section .container form .row .field:hover {
+    border-color: var(--color-orange); 
+    box-shadow: 0 0 0 2px rgba(245, 110, 15, 0.2); 
+}
+
+section .container form .row .field input {
+    border: none;
+}
+
+section .container form .row .field input:focus {
+    border: none;
+    box-shadow: none;
+}
+
+section .container form .row .field ion-icon {
+    color: var(--color-grey);
+}
+
+section .container form .agree {
+    font-size: 0.7rem;
+}
