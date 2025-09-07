@@ -1,7 +1,8 @@
 import * as AuthService from '../services/auth-service.js'
-import { sendConflict, sendOk } from '../utils/http.util.js';
+import { sendBadRequest, sendConflict, sendOk } from '../utils/http.util.js';
 import { sendAdmin } from '../utils/mailer.util.js';
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 function generateRandomPassword(length = 12) {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
@@ -39,4 +40,33 @@ export const register = async(req, res, next) => {
         next(error)
     }
 
+}
+
+export const login = async(req, res, next) => {
+    const { email, password } = req.body;
+
+    try {  
+        const user = await AuthService.findUser(email);
+        if(!user) return sendBadRequest(res, 'Invalid credentials. ');
+
+        const passwordsMatch = await bcrypt.compare(password, user.password);
+        if(!passwordsMatch) return sendBadRequest(res, 'Invalid credentials. ');
+
+        const accessToken = jwt.sign({
+            id: user.id,
+            firstName: user.first_name,
+            lastName: user.last_name,
+            email: user.email,
+            image: user.image_url,
+            bio: user.bio,
+            role: user.role_id
+            }, process.env.JWT_SECRET_TOKEN, {
+            expiresIn: '15m'
+        })
+
+        sendOk(res, accessToken, "Logged in successfully. ");
+
+    } catch(error) {
+        next(error)
+    }
 }
