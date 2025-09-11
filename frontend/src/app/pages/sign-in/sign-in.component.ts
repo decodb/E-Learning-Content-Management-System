@@ -1,6 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService, loginUser } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,6 +15,8 @@ export class SignInComponent {
   isLoading = signal<boolean>(false);
   errorMessage = signal<string>('');
   private authService = inject(AuthService);
+
+  constructor(private router: Router) {}
 
   togglePassword() {
     this.showPassword.set(!this.showPassword())
@@ -44,6 +47,7 @@ export class SignInComponent {
           console.log(data)
           localStorage.setItem('token', data)
           this.isLoading.set(false)
+          this.router.navigate(['/dashboard/admin'])
         },
         error: ({ error }) => {
           const { message } = error;

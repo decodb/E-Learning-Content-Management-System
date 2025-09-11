@@ -61,7 +61,7 @@ export const login = async(req, res, next) => {
             bio: user.bio,
             role: user.role_id
             }, process.env.JWT_SECRET_TOKEN, {
-            expiresIn: '15m'
+            expiresIn: '1hr'
         })
 
         sendOk(res, accessToken, "Logged in successfully. ");
