@@ -19,3 +19,34 @@ export const getLecturers = async() => {
 
     return result.rows
 }
+
+export const getLecturer = async(email) => {
+    const result = await pool.query(
+        `
+            SELECT * FROM users
+            WHERE email=$1
+        `, [email]
+    )
+
+    return result.rows[0]
+}
+
+export const addLecturer = async (first_name, last_name, email, password, role = 2) => {
+  const result = await pool.query(
+    `
+      INSERT INTO users (
+        first_name,
+        last_name,
+        email,
+        password,
+        role_id,
+        created_at
+      ) 
+      VALUES ($1, $2, $3, $4, $5, NOW())
+      RETURNING *;
+    `,
+    [first_name, last_name, email, password, role]
+  );
+
+  return result.rows[0];
+};
