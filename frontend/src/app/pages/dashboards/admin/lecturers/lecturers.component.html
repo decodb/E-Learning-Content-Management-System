@@ -1,1 +1,45 @@
-<p>lecturers works!</p>
+<section>
+    <div class="header">
+        <div class="left">
+            <h2>Lecturers</h2>
+            <p>View and manage lecturers</p>
+        </div>
+        <a routerLink="" class="btn">
+            <ion-icon name="person-add-outline"></ion-icon>
+            <span>Add Lecturer</span>
+        </a>
+    </div>
+    <div class="main">
+        <div class="header">
+            <div class="left">
+                <div class="user">
+                    <ion-icon name="person-outline"></ion-icon>
+                </div>
+                <p>Total Lecturers: <span>1234</span></p>
+            </div>
+            <div class="right">
+                <div class="search_bar">
+                    <ion-icon name="search-outline"></ion-icon>
+                    <input type="text" placeholder="Search name">
+                </div>
+                <div class="btn">
+                    <ion-icon name="funnel-outline"></ion-icon>
+                    <span>Sort</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="table_header">
+            <span>Name</span>
+            <span>Faculty</span>
+            <span>Joining Date</span>
+            <span>Action</span>
+        </div>
+        <div class="table_entries">
+            <div class="table_entry">
+                <app-lecturer />
+                <app-lecturer />
+            </div>
+        </div>
+    </div>
+</section>

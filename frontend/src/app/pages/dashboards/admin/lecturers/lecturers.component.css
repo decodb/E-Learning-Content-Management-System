@@ -1,0 +1,118 @@
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem 2rem;
+}
+
+section .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+section .header .left h2 {
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+section .header .left p {
+    color: var(--color-light-grey);
+    font-size: 0.85rem;
+}
+
+section .header a {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+}
+
+/* MAIN */
+section .main {
+    border: 1px solid var(--color-lighter-grey);
+    border-radius: 5px;
+}
+
+section .main .header {
+    display: flex;
+    align-items: center;
+    background-color: var(--background-grey);
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--color-lighter-grey);
+}
+
+section .main .header .left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+section .main .header .left .user {
+    background-color: var(--color-white);
+    padding: 0.35rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    color: var(--color-orange);
+}
+
+section .main .header .left p span {
+    color: var(--color-black);
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+section .main .header .right {
+    display: flex;
+    gap: 0.5rem;
+}
+
+section .main .header .right .search_bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-lighter-grey);
+    border-radius: 5px;
+    background-color: var(--color-white);
+    padding: 0rem 1rem;
+}
+
+section .main .header .right .search_bar ion-icon {
+    color: var(--color-orange);
+    font-size: 1.25rem;
+}
+
+section .main .header .right .search_bar input {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+section .main .header .right .search_bar input:focus {
+    outline: none;        
+    box-shadow: none;   
+}
+
+section .main .header .right .btn {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-lighter-grey);
+    color: var(--color-black);
+    padding: 0.5rem 1rem;
+}
+
+section .main .table_header {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 0.5fr;
+    gap: 1rem;                           
+    padding: 0.35rem 1rem;
+    border-bottom: 1px solid var(--color-lighter-grey);
+    background-color: var(--background-grey);
+    align-items: center;             
+}
+
+section .main .table_header span {
+    display: flex;
+    align-items: center;
+    color: var(--color-light-grey);
+    font-size: 0.85rem;
+}
