@@ -4,6 +4,7 @@ import cors from "cors"
 import pool from './config/db.js'
 import { errorHandler } from "./middlewares/error-handler.js";
 import authRoutes from './routes/auth-route.js'
+import adminRoutes from './routes/admin-routes.js'
 
 dotenv.config()
 
@@ -15,6 +16,7 @@ app.use(cors())
 app.use(errorHandler)
 
 app.use('/api/auth/', authRoutes)
+app.use('/api/admin/', adminRoutes)
 
 app.listen(PORT, ()=> {
     console.log(`Server is running on ${PORT}`)
