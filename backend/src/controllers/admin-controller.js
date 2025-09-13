@@ -14,18 +14,30 @@ function generateRandomPassword(length = 12) {
 }
 
 export const getLecturers = async(req, res, next) => {
-    try {
-        const lecturers = await AdminService.getLecturers();
-        if(lecturers.length === 0) return sendNotFound(res, 'No lecturers found. ');
+    const search = req.query.search || "";
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
 
-        sendOk(res, lecturers, 'Lecturers found. ');
+    try {
+        const numOfLecturers = await AdminService.lecturersCount();
+        const numOfPages = Math.ceil(numOfLecturers / limit);
+
+        const lecturers = await AdminService.getLecturers(search, limit, skip);
+        if(!lecturers) return sendInternalServerError(res, 'Something went wrong. Please try again later.');
+        if(lecturers.length <= 0) return sendNotFound(res, 'No lecturers found. ');
+
+        const data =  { currentPage: page, totalLecturers: parseInt(numOfLecturers),
+                        totalPages: numOfPages, lecturers: lecturers };
+
+        sendOk(res, data, 'Lectures successfully found. ');
     } catch(e) {
         next(e)
     }
 }
 
 export const addLecturer = async(req, res, next) => {
-    const {first_name, last_name, email } = req.body;
+    const { first_name, last_name, email } = req.body;
 
     try {
         const lecturer = await AdminService.getLecturer(email);

@@ -1,20 +1,38 @@
 import pool from "../config/db.js"
 
-export const getLecturers = async() => {
+export const lecturersCount = async() => {
+  const result = await pool.query(
+    `
+      SELECT COUNT(*) AS total_users
+      FROM users
+      WHERE role_id = 2;
+    `
+  )
+
+  return result.rows[0].total_users;
+}
+
+export const getLecturers = async(searchQuery, per_page, skip) => {
     const result = await pool.query(
         `
             SELECT 
-                u.first_name,
-                u.last_name,
-                u.email,
-                u.image_url,
-                u.created_at,
-                r.name AS role_name
-            FROM users u
-            JOIN role r 
-                ON u.role_id = r.id
-            WHERE u.role_id = 2; 
-        `
+              u.first_name,
+              u.last_name,
+              u.email,
+              u.image_url,
+              u.created_at,
+              c.code,
+              f.code
+            FROM (
+              SELECT *
+              FROM users
+              WHERE first_name ILIKE '%' || $1 || '%' OR last_name ILIKE '%' || $2 || '%'
+              LIMIT $3 OFFSET $4
+            ) AS u
+            JOIN course c ON u.id = c.lecturer_id
+            JOIN category f ON f.id = c.category_id
+            WHERE u.role_id = 2;
+        `, [searchQuery, searchQuery, per_page, skip]
     )
 
     return result.rows
