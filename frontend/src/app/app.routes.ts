@@ -4,6 +4,7 @@ import { AdminComponent } from './pages/dashboards/admin/admin.component';
 import { LecturersComponent } from './pages/dashboards/admin/lecturers/lecturers.component';
 import { SettingsComponent } from './pages/dashboards/admin/settings/settings.component';
 import { authGuard } from './guards/auth/auth.guard';
+import { AddLecturerComponent } from './pages/dashboards/admin/lecturers/add-lecturer/add-lecturer.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,12 @@ export const routes: Routes = [
             {
                 path: 'lecturers',
                 component: LecturersComponent,
+                children: [
+                    {
+                        path: 'add',
+                        component: AddLecturerComponent
+                    }
+                ]
             },
             {
                 path: 'settings',

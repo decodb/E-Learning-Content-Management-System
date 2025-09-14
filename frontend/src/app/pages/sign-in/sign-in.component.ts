@@ -50,6 +50,7 @@ export class SignInComponent {
           this.router.navigate(['/dashboard/admin'])
         },
         error: ({ error }) => {
+          console.log(error)
           const { message } = error;
           this.errorMessage.set(message)
           this.isLoading.set(false)

@@ -1,0 +1,27 @@
+<div class="backdrop" (click)="navigate()"></div>
+<dialog open>
+  <h2>Add A Lecturer</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <p>
+      <label for="first_name">First_name</label>
+      <input type="text" id="first_name" name="first_name" formControlName="first_name"/>
+    </p>
+
+    <p>
+      <label for="last_name">Last_name</label>
+      <input type="text" id="last_name" name="last_name" formControlName="last_name" />
+    </p>
+
+    <p>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" formControlName="email" />
+    </p>
+
+    <button type="submit" class="btn" [disabled]="isLoading()">
+        Add a lecturer
+        @if(isLoading()) {
+            <span class="spinner"></span>
+        }
+    </button>
+  </form>
+</dialog>

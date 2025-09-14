@@ -1,13 +1,12 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { LecturerComponent } from "../../../../components/lecturer/lecturer.component";
 import { LecturersService } from '../../../../services/admin/lecturers/lecturers.service';
 import { LecturersData } from '../../../../services/admin/lecturers/lecturers.model';
-import { sign } from 'crypto';
 
 @Component({
   selector: 'app-lecturers',
-  imports: [RouterLink, LecturerComponent],
+  imports: [RouterLink, LecturerComponent, RouterOutlet],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './lecturers.component.html',
   styleUrl: './lecturers.component.css'
