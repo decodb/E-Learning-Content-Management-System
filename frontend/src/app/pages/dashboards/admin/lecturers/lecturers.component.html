@@ -37,8 +37,17 @@
         </div>
         <div class="table_entries">
             <div class="table_entry">
-                <app-lecturer />
-                <app-lecturer />
+                @if(isLoading()) {
+                    <p>Loading</p>
+                } @else { 
+                    @if(lecturersData().lecturers.length === 0) {
+                        <p>Loading</p>
+                    } @else {
+                        @for(lecturer of lecturersData().lecturers; track lecturer.email) {
+                            <app-lecturer [lecturer]="lecturer"/>
+                        }
+                    }
+                }
             </div>
         </div>
     </div>

@@ -1,4 +1,5 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, input } from '@angular/core';
+import { Lecturer } from '../../services/admin/lecturers/lecturers.model';
 
 @Component({
   selector: 'app-lecturer',
@@ -8,5 +9,5 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   styleUrl: './lecturer.component.css'
 })
 export class LecturerComponent {
-
+  lecturer = input.required<Lecturer>();
 }

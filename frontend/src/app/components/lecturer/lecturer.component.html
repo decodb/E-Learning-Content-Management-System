@@ -1,18 +1,27 @@
 <div class="lecturer">
     <div class="profile">
-        <img src="images/user.png" alt="">
+        @if(lecturer().image_url === null) {
+            <img src="images/user.png" alt="">
+        } @else {
+            <img [src]="lecturer().image_url" alt="">
+        }
         <div class="information">
-            <p class="names">Boitumelo Mkhwanazi</p>
-            <span class="email">b_mkwanazi&#64;gmail.com</span>
+            <p class="names">{{ lecturer().first_name }} {{ lecturer().last_name }}</p>
+            <span class="email">{{ lecturer().email }}</span>
         </div>
     </div>
     <div class="faculty">
         <div class="dot"></div>
-        <span>FNAS</span>
+        @if(lecturer().code === null) {
+            <span>_____</span>
+        } @else {
+            <span>{{ lecturer().code }}</span>
+        }
+        
     </div>
     <div class="date">
         <ion-icon name="calendar-outline"></ion-icon>
-        <span>09-28-2025</span>
+        <span>{{ lecturer().created_at.split("T")[0] }}</span>
     </div>
     <div class="action">
         <ion-icon name="ellipsis-vertical"></ion-icon>

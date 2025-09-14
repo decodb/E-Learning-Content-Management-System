@@ -10,6 +10,6 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class AdminComponent {
   constructor(private authService : AuthService) {
-    console.log(this.authService.getLoggedInUser())
+    //console.log(this.authService.getLoggedInUser())
   }
 }
