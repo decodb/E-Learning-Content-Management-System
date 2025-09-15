@@ -39,7 +39,11 @@
         <div class="table_entries">
             <div class="table_entry">
                 @if(isLoading()) {
-                    <p>Loading</p>
+                    <div class="skeleton-container">
+                        <div class="skeleton skeleton-full"></div>
+                        <div class="skeleton skeleton-70"></div>
+                        <div class="skeleton skeleton-35"></div>
+                    </div>
                 } @else { 
                     @if(lecturersData().lecturers.length === 0) {
                         <p>Loading</p>

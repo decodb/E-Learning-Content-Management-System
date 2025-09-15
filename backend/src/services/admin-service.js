@@ -29,8 +29,8 @@ export const getLecturers = async(searchQuery, per_page, skip) => {
               WHERE first_name ILIKE '%' || $1 || '%' OR last_name ILIKE '%' || $2 || '%'
               LIMIT $3 OFFSET $4
             ) AS u
-            JOIN course c ON u.id = c.lecturer_id
-            JOIN category f ON f.id = c.category_id
+            LEFT JOIN course c ON u.id = c.lecturer_id
+            LEFT JOIN category f ON f.id = c.category_id
             WHERE u.role_id = 2;
         `, [searchQuery, searchQuery, per_page, skip]
     )

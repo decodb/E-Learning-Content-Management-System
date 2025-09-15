@@ -13,7 +13,7 @@
     <div class="faculty">
         <div class="dot"></div>
         @if(lecturer().code === null) {
-            <span>_____</span>
+            <span>N/A</span>
         } @else {
             <span>{{ lecturer().code }}</span>
         }
@@ -23,7 +23,22 @@
         <ion-icon name="calendar-outline"></ion-icon>
         <span>{{ lecturer().created_at.split("T")[0] }}</span>
     </div>
-    <div class="action">
+    <div class="action" (click)="toggleDropDown()">
         <ion-icon name="ellipsis-vertical"></ion-icon>
+        @if(isShowDropDown()) {
+            <div class="dropdown">
+                <div class="backdrop"></div>
+                <div class="menu">
+                    <div class="option">
+                        <ion-icon name="create-outline"></ion-icon>
+                        <span>Edit</span>
+                    </div>
+                    <div class="option">
+                        <ion-icon name="trash-outline"></ion-icon>
+                        <span>Delete</span>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>

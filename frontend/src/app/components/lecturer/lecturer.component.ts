@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, input } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, input, signal } from '@angular/core';
 import { Lecturer } from '../../services/admin/lecturers/lecturers.model';
 
 @Component({
@@ -10,4 +10,9 @@ import { Lecturer } from '../../services/admin/lecturers/lecturers.model';
 })
 export class LecturerComponent {
   lecturer = input.required<Lecturer>();
+  isShowDropDown = signal<boolean>(false);
+
+  toggleDropDown() {
+    this.isShowDropDown.set(!this.isShowDropDown())
+  }
 }

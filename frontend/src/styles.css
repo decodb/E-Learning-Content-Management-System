@@ -93,7 +93,47 @@ img {
   display: inline-block;
 }
 
+/* LOADING STATE */
+.skeleton-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.skeleton {
+  height: 30px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--background-grey) 25%,
+    var(--color-white) 50%,
+    var(--background-grey) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-full {
+  width: 100%;
+}
+.skeleton-70 {
+  width: 70%;
+}
+.skeleton-35 {
+  width: 35%;
+}
+
 @keyframes spin {
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }

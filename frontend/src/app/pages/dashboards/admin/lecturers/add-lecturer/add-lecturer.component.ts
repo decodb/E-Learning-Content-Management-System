@@ -16,9 +16,9 @@ export class AddLecturerComponent {
   constructor(private lecturersService: LecturersService, private router: Router) {}
   
   form = new FormGroup({
-    first_name: new FormControl('', { validators: [Validators.minLength(3)]}),
-    last_name: new FormControl('', { validators: [Validators.minLength(4)]}),
-    email: new FormControl('', {validators: [Validators.email]})
+    first_name: new FormControl('', { validators: [Validators.required,Validators.minLength(3)]}),
+    last_name: new FormControl('', { validators: [Validators.required, Validators.minLength(4)]}),
+    email: new FormControl('', {validators: [Validators.required, Validators.email]})
   })
 
   navigate() {
