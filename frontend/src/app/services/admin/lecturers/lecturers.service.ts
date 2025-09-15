@@ -13,9 +13,12 @@ export class LecturersService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getLecturers(): Observable<any> {
-    return this.httpClient.get<LecturersData>(this.getLecturersUrl);
+  getLecturers(searchQuery: string): Observable<any> {
+    const params = { search: searchQuery };
+
+    return this.httpClient.get<LecturersData>(this.getLecturersUrl, { params });
   }
+ 
 
   addLecturer(data: LecturerInfo): Observable<any> {
     return this.httpClient.post<any>(this.addLecturerUrl, data)
