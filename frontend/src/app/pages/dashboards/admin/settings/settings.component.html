@@ -1,1 +1,58 @@
-<p>settings works!</p>
+<section>
+    <div class="header_container">
+        <h2>My Profile</h2>
+        <div class="line"></div>
+    </div>
+    <div class="image_container">
+        @if(loggedInUser?.image === null) {
+            <img src="images/user.png" alt="">
+        }@else {
+            <img [src]="loggedInUser?.image" alt="">
+        }
+        <div class="user_info">
+            <h3>{{ loggedInUser?.firstName }} {{ loggedInUser?.lastName }}</h3>
+            <span>{{ loggedInUser?.role }}</span>
+            <div class="buttons">  
+                <button class="btn">Upload picture</button>
+                <button class="btn">Remove picture</button>
+            </div>
+        </div>
+    </div>
+    <div class="personal_information">
+            <div class="header">
+                <h2>Personal Information</h2>
+                <button class="btn">
+                    <span>Edit</span>
+                    <ion-icon name="pencil-outline"></ion-icon>
+                </button>
+            </div>
+            <div class="content">
+                <div class="column">
+                    <span>First Name</span>
+                    <p>{{ loggedInUser?.firstName }}</p>
+                </div>
+                <div class="column">
+                    <span>Last Name</span>
+                    <p>{{ loggedInUser?.lastName }}</p>
+                </div>
+                <div class="column">
+                    <span>Email</span>
+                    <p>{{ loggedInUser?.email }}</p>
+                </div>
+            </div>
+    </div>
+    <div class="bio">
+        <div class="header">
+            <h2>Bio</h2>
+            <button class="btn">
+                <span>Edit</span>
+                <ion-icon name="pencil-outline"></ion-icon>
+            </button>
+        </div>
+        @if(loggedInUser?.bio === null) {
+            <p>No bio</p>
+        } @else {
+            <p>{{ loggedInUser?.bio }}</p>
+        }
+    </div>
+</section>

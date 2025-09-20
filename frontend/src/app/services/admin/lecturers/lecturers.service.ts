@@ -19,7 +19,6 @@ export class LecturersService {
     return this.httpClient.get<LecturersData>(this.getLecturersUrl, { params });
   }
  
-
   addLecturer(data: LecturerInfo): Observable<any> {
     return this.httpClient.post<any>(this.addLecturerUrl, data)
   }

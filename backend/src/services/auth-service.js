@@ -3,7 +3,18 @@ import pool from "../config/db.js"
 export const findUser = async(email) => {
     const result = await pool.query(
         `
-            SELECT * FROM users WHERE email=$1
+            SELECT 
+                u.id, 
+                u.first_name, 
+                u.last_name, 
+                u.email, 
+                u.password,
+                u.image_url, 
+                u.bio, 
+                r.name AS role_name
+            FROM users AS u
+            LEFT JOIN role AS r ON r.id = u.role_id
+            WHERE u.email=$1;
         `, [email]
     )
 

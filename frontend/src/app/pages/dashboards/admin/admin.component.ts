@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 @Component({
@@ -9,7 +9,6 @@ import { AuthService } from '../../../services/auth/auth.service';
   styleUrl: './admin.component.css'
 })
 export class AdminComponent {
-  constructor(private authService : AuthService) {
-    //console.log(this.authService.getLoggedInUser())
-  }
+  authService = inject(AuthService);
+  loggedInUser = this.authService.getLoggedInUser();
 }

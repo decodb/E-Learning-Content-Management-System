@@ -21,10 +21,15 @@
             </div>
         </div>
         <div class="bottom">
-            <img src="images/user.png" alt="">
+            @if(loggedInUser?.image === null) {
+                <img src="images/user.png" alt="">
+            } @else {
+                <img [src]="loggedInUser?.image" alt="">
+            }
+            
             <div class="user">
-                <p>Boitumelo</p>
-                <span>Admin</span>
+                <p>{{ loggedInUser?.firstName }}</p>
+                <span>{{ loggedInUser?.role }}</span>
             </div>
         </div>
     </aside>

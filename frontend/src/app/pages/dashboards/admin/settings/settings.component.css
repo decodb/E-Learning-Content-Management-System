@@ -1,0 +1,129 @@
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem 2rem;
+}
+
+section .header_container {
+    display: grid;
+    grid-template-columns: 1fr 7fr;
+    align-items: center;
+    gap: 1rem;
+}
+
+section .header_container h2 {
+    font-weight: 500;
+    color: var(--color-orange);
+}
+
+section .header_container .line {
+    height: 0.5px;
+    background-color: var(--color-lighter-grey);
+}
+
+section .image_container {
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+}
+
+section .image_container img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+}
+
+section .user_info {
+    display: flex;
+    flex-direction: column;
+}
+
+section .user_info h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+section .user_info span {
+    font-size: 0.9rem;
+    color: var(--color-light-grey);
+}
+
+section .user_info .buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+section .personal_information,
+section .bio {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    padding: 0.5rem 2rem;
+}
+
+section .personal_information .header,
+section .bio .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0rem;
+    border-bottom: 1px solid var(--color-lighter-grey);
+}
+
+section .personal_information .header h2,
+section .bio .header h2 {
+    font-size: 1.35rem;
+    font-weight: 400;
+}
+
+section .personal_information .header .btn, 
+section .bio .header .btn,
+section .user_info .buttons .btn:nth-child(2) {
+    background-color: transparent;
+    border: var(--color-light-grey);
+    color: black;
+    border: 1px solid var(--color-light-grey);
+}
+
+section .personal_information .header .btn span,
+section .bio .header .btn span {
+    font-weight: 600;
+}
+
+section .personal_information .header .btn ion-icon {
+    color: var(--color-light-grey);
+}
+
+section .personal_information .content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 0 0 0.5rem 0;
+}
+
+section .personal_information .content .column {
+    display: flex;
+    gap: 0.4rem;
+    flex-direction: column;
+}
+
+section .personal_information .content .column span {
+    font-size: 0.95rem;
+    color: var(--color-light-grey);
+}
+
+section .bio p {
+    color: var(--color-light-grey);
+    padding: 0 0 0.5rem 0;
+}
+
+section .personal_information:hover .btn,
+section .bio:hover .btn {
+  background-color: var(--color-orange);
+}

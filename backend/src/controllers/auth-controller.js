@@ -59,7 +59,7 @@ export const login = async(req, res, next) => {
             email: user.email,
             image: user.image_url,
             bio: user.bio,
-            role: user.role_id
+            role: user.role_name
             }, process.env.JWT_SECRET_TOKEN, {
             expiresIn: '1hr'
         })
