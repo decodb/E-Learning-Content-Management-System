@@ -1,0 +1,69 @@
+.course {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.course h3 {
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--color-lighter-grey);
+}
+
+.course .category {
+    color: var(--color-light-grey);
+    font-weight: 400;
+}
+
+.course .container {
+    display: flex;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-lighter-grey);
+}
+
+.course .container .line {
+    background-color: var(--color-orange);
+    width: 15px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.course .container .content h2 {
+    font-weight: 500;
+    line-height: 1.75rem;
+}
+
+.course .container .content p {
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: var(--color-light-grey);
+}
+
+.course .bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.course .bottom .lecturer {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.course .bottom .icon {
+    background-color: var(--color-orange-lighter);
+    padding: 0.25rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.course .bottom .icon ion-icon {
+    color: var(--color-orange);
+}

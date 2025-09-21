@@ -24,7 +24,6 @@ export class LecturersComponent implements OnInit {
 
   constructor(private lecturersService: LecturersService) {
     effect(() => {
-      console.log(this.searchQuery())
       const query = this.searchQuery();
       this.fetchLecturers(query);
     });

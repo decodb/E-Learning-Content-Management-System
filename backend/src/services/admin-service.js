@@ -68,3 +68,40 @@ export const addLecturer = async (first_name, last_name, email, password, role =
 
   return result.rows[0];
 };
+
+export const courses = async(searchQuery, per_page, skip) => {
+  const result = await pool.query(
+    `
+      SELECT 
+        c.name,
+        c.code,
+        c.description,
+        f.code,
+        u.image_url,
+        u.first_name,
+        u.last_name
+        FROM (
+          SELECT *
+          FROM course
+          WHERE name ILIKE '%' || $1 || '%'
+          LIMIT $2 OFFSET $3
+        ) AS c
+        LEFT JOIN users u ON c.lecturer_id = u.id
+        LEFT JOIN category f ON c.category_id = f.id
+        WHERE u.role_id = 2;
+    `, [searchQuery, per_page, skip]
+  )
+
+  return result.rows;
+} 
+
+export const coursesCount = async() => {
+  const result = await pool.query(
+    `
+      SELECT COUNT(*) AS total_courses
+      FROM courses
+    `
+  )
+
+  return result.rows[0].total_courses;
+}

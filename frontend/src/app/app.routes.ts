@@ -5,6 +5,7 @@ import { LecturersComponent } from './pages/dashboards/admin/lecturers/lecturers
 import { SettingsComponent } from './pages/dashboards/admin/settings/settings.component';
 import { authGuard } from './guards/auth/auth.guard';
 import { AddLecturerComponent } from './pages/dashboards/admin/lecturers/add-lecturer/add-lecturer.component';
+import { CoursesComponent } from './pages/dashboards/admin/courses/courses.component';
 
 export const routes: Routes = [
     {
@@ -24,6 +25,10 @@ export const routes: Routes = [
         title: 'E-Learning | Admin',
         canActivate: [authGuard],
         children: [
+            {
+                path: 'courses',
+                component: CoursesComponent
+            },
             {
                 path: 'lecturers',
                 component: LecturersComponent,

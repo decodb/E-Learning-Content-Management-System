@@ -57,3 +57,27 @@ export const addLecturer = async(req, res, next) => {
         next(e)
     }
 }
+
+export const courses = async(req, res, next) => {
+    const search = req.query.search || "";
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    try {
+        const numOfCourses = await AdminService.lecturersCount();
+        const numOfPages = Math.ceil(numOfCourses / limit);
+
+        const courses = await AdminService.courses(search, limit, skip);
+        if(!courses) return sendInternalServerError(res, 'Something went wrong. Please try again later.');
+        if(courses.length <= 0) return sendNotFound(res, 'No lecturers found. ');
+
+        const data =  { currentPage: page, totalCourses: parseInt(numOfCourses),
+                        totalPages: numOfPages, courses: courses };
+
+        sendOk(res, data, 'Courses successfully found. ');
+
+    } catch(e) {
+        next(e)
+    }
+}

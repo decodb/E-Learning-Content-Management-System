@@ -1,0 +1,21 @@
+<div class="course">
+    <h3>{{ course().code }}</h3>
+    <div class="container">
+        <div class="line"></div>
+        <div class="content">
+            <h2>{{ course().name }}</h2>
+            <p>{{ course().description }}</p>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="lecturer">
+            @if(course().image_url === null) {
+                <img src="images/user.png" alt="">
+            } @else {
+                <img [src]="course().image_url" alt="">
+            }
+            <span>{{ course().first_name }} {{ course().last_name }}</span>
+        </div>
+        <div class="icon"><ion-icon name="arrow-redo-outline"></ion-icon></div>
+    </div>
+</div>

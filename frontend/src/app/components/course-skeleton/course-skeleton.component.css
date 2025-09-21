@@ -1,0 +1,65 @@
+.course {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.course.skeleton * {
+  color: transparent;
+  background: none;
+}
+
+.skeleton-box,
+.skeleton-avatar,
+.skeleton-circle {
+  background: linear-gradient(90deg, #e4e4e4 25%, #f5f5f5 50%, #e4e4e4 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-box.short {
+  width: 80px;
+  height: 18px;
+}
+
+.skeleton-box.medium {
+  width: 70%;
+  height: 22px;
+}
+
+.skeleton-box.long {
+  width: 95%;
+  height: 14px;
+  margin-top: 0.25rem;
+}
+
+.skeleton-box.name {
+  width: 120px;
+  height: 16px;
+  margin-left: 0.5rem;
+  background-color: #f5f5f5;
+}
+
+.skeleton-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.skeleton-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
