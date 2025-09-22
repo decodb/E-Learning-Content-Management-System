@@ -69,6 +69,17 @@ export const addLecturer = async (first_name, last_name, email, password, role =
   return result.rows[0];
 };
 
+export const coursesCount = async() => {
+  const result = await pool.query(
+    `
+      SELECT COUNT(*) AS total_courses
+      FROM courses
+    `
+  )
+
+  return result.rows[0].total_courses;
+}
+
 export const courses = async(searchQuery, per_page, skip) => {
   const result = await pool.query(
     `
@@ -95,13 +106,18 @@ export const courses = async(searchQuery, per_page, skip) => {
   return result.rows;
 } 
 
-export const coursesCount = async() => {
+export const addCourse = async() => {
+
+}
+
+export const updateInfo = async(id, email, bio) => {
   const result = await pool.query(
-    `
-      SELECT COUNT(*) AS total_courses
-      FROM courses
-    `
+    ` 
+      UPDATE users
+      SET email=$1, bio=$2
+      WHERE id=$3 RETURNING *
+    `,[email, bio, id]
   )
 
-  return result.rows[0].total_courses;
-}
+  return result.rows[0];
+} 

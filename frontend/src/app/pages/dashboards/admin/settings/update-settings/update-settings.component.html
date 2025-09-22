@@ -1,0 +1,27 @@
+<div class="backdrop" (click)="navigate()"></div>
+<dialog open>
+  <h2>Update Your Information</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <p>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" formControlName="email" />
+    </p>
+
+    <p>
+      <label for="bio">Bio</label>
+      <textarea id="bio" rows="5" name="bio" formControlName="bio"></textarea>
+    </p>
+    @if(message() &&  message().length > 0) {
+        <p class="response"><ion-icon name="checkmark-circle-outline"></ion-icon> <span>{{ message() }}</span></p>
+    }
+
+    <div class="actions">
+      <button class="btn" type="submit" [disabled]="isLoading()">
+        Update
+        @if(isLoading()) {
+            <span class="spinner"></span>
+        }
+      </button>
+    </div>
+  </form>
+</dialog>

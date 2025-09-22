@@ -90,6 +90,14 @@ section .user_info .buttons .btn:nth-child(2) {
     border: var(--color-light-grey);
     color: black;
     border: 1px solid var(--color-light-grey);
+    transition: all 0.3s ease-in-out;
+}
+
+section .personal_information .header .btn:hover,
+section .bio .header .btn:hover {
+  background-color: var(--color-orange);
+  border: 1px solid var(--color-orange);
+  color: var(--color-white);
 }
 
 section .personal_information .header .btn span,
@@ -121,9 +129,4 @@ section .personal_information .content .column span {
 section .bio p {
     color: var(--color-light-grey);
     padding: 0 0 0.5rem 0;
-}
-
-section .personal_information:hover .btn,
-section .bio:hover .btn {
-  background-color: var(--color-orange);
 }

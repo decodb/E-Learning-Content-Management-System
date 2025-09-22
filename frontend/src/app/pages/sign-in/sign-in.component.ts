@@ -44,7 +44,6 @@ export class SignInComponent {
     this.authService.login(userCredentials)
       .subscribe({
         next: ({ data }) => {
-          console.log(data)
           localStorage.setItem('token', data)
           this.isLoading.set(false)
           this.router.navigate(['/dashboard/admin'])

@@ -1,3 +1,4 @@
+<router-outlet />
 <section>
     <div class="header_container">
         <h2>My Profile</h2>
@@ -21,10 +22,10 @@
     <div class="personal_information">
             <div class="header">
                 <h2>Personal Information</h2>
-                <button class="btn">
+                <a routerLink="update" class="btn">
                     <span>Edit</span>
                     <ion-icon name="pencil-outline"></ion-icon>
-                </button>
+                </a>
             </div>
             <div class="content">
                 <div class="column">
@@ -44,10 +45,10 @@
     <div class="bio">
         <div class="header">
             <h2>Bio</h2>
-            <button class="btn">
+            <a routerLink="update" class="btn">
                 <span>Edit</span>
                 <ion-icon name="pencil-outline"></ion-icon>
-            </button>
+            </a>
         </div>
         @if(loggedInUser?.bio === null) {
             <p>No bio</p>

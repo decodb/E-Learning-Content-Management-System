@@ -1,7 +1,9 @@
 import * as AdminService from '../services/admin-service.js'
-import { sendConflict, sendInternalServerError, sendNotFound, sendOk } from '../utils/http.util.js';
+import * as AuthService from '../services/auth-service.js'
+import { sendBadRequest, sendConflict, sendInternalServerError, sendNotFound, sendOk } from '../utils/http.util.js';
 import bcrypt from 'bcrypt'
 import { sendLecturer } from '../utils/mailer.util.js';
+import jwt from 'jsonwebtoken'
 
 function generateRandomPassword(length = 12) {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
@@ -13,6 +15,7 @@ function generateRandomPassword(length = 12) {
     return password;
 }
 
+// Lecturers
 export const getLecturers = async(req, res, next) => {
     const search = req.query.search || "";
     const page = parseInt(req.query.page) || 1;
@@ -58,6 +61,7 @@ export const addLecturer = async(req, res, next) => {
     }
 }
 
+// Courses
 export const courses = async(req, res, next) => {
     const search = req.query.search || "";
     const page = parseInt(req.query.page) || 1;
@@ -79,5 +83,42 @@ export const courses = async(req, res, next) => {
 
     } catch(e) {
         next(e)
+    }
+}
+
+export const addCourse = async(req, res, next) => {
+    try {
+
+    } catch(error) {
+        next(error);
+    }
+}
+
+// profile
+export const updateInfo = async(req, res, next) => {
+    const { email, bio } = req.body;
+    
+    try {
+        const updatedUser = await AdminService.updateInfo(req.userInfo.id ,email, bio);
+        if(!updatedUser) return sendBadRequest(res, "Couldn't update your information, please try again later. ");
+
+        const user = await AuthService.findUser(updatedUser.email);
+        if(!user) return sendBadRequest(res, 'There is no user with this emaail. ');
+
+        const updatedToken = jwt.sign({
+            id: user.id,
+            firstName: user.first_name,
+            lastName: user.last_name,
+            email: user.email,
+            image: user.image_url,
+            bio: user.bio,
+            role: user.role_name
+            }, process.env.JWT_SECRET_TOKEN, {
+            expiresIn: '1hr'
+        })
+
+        sendOk(res, updatedToken, "Information successfully updated. ");
+    } catch(error) {
+        next(error)
     }
 }

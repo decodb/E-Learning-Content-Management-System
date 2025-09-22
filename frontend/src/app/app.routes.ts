@@ -6,6 +6,7 @@ import { SettingsComponent } from './pages/dashboards/admin/settings/settings.co
 import { authGuard } from './guards/auth/auth.guard';
 import { AddLecturerComponent } from './pages/dashboards/admin/lecturers/add-lecturer/add-lecturer.component';
 import { CoursesComponent } from './pages/dashboards/admin/courses/courses.component';
+import { UpdateSettingsComponent } from './pages/dashboards/admin/settings/update-settings/update-settings.component';
 
 export const routes: Routes = [
     {
@@ -41,7 +42,13 @@ export const routes: Routes = [
             },
             {
                 path: 'settings',
-                component: SettingsComponent
+                component: SettingsComponent,
+                children: [
+                    {
+                        path: 'update',
+                        component: UpdateSettingsComponent
+                    }
+                ]
             }
         ]
     }
