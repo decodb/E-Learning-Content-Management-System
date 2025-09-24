@@ -8,6 +8,7 @@ import { AddLecturerComponent } from './pages/dashboards/admin/lecturers/add-lec
 import { CoursesComponent } from './pages/dashboards/admin/courses/courses.component';
 import { UpdateSettingsComponent } from './pages/dashboards/admin/settings/update-settings/update-settings.component';
 import { AddCourseComponent } from './pages/dashboards/admin/courses/add-course/add-course.component';
+import { ChangePasswordComponent } from './pages/dashboards/admin/change-password/change-password.component';
 
 export const routes: Routes = [
     {
@@ -54,8 +55,16 @@ export const routes: Routes = [
                     {
                         path: 'update',
                         component: UpdateSettingsComponent
+                    },
+                    {
+                        path: 'changePassword',
+                        component: ChangePasswordComponent
                     }
                 ]
+            },
+            {
+                path: 'changePassword',
+                component: ChangePasswordComponent
             }
         ]
     }

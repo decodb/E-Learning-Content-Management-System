@@ -20,7 +20,6 @@ export const register = async(req, res, next) => {
 
     try {
         const user = await AuthService.findUser(email);
-
         if(user) return sendConflict(res, 'User with this email already exists. ');
 
         const generatedPassword = generateRandomPassword();

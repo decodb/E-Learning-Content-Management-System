@@ -2,7 +2,7 @@ import * as AdminService from '../services/admin-service.js'
 import * as AuthService from '../services/auth-service.js'
 import { sendBadRequest, sendConflict, sendInternalServerError, sendNotFound, sendOk } from '../utils/http.util.js';
 import bcrypt from 'bcrypt'
-import { sendLecturer } from '../utils/mailer.util.js';
+import { changePasswordVerification, sendLecturer } from '../utils/mailer.util.js';
 import jwt from 'jsonwebtoken'
 
 function generateRandomPassword(length = 12) {
@@ -147,6 +147,31 @@ export const updateInfo = async(req, res, next) => {
         })
 
         sendOk(res, updatedToken, "Information successfully updated. ");
+    } catch(error) {
+        next(error)
+    }
+}
+
+// change password
+export const changePassword = async(req, res, next) => {
+    const email = req.userInfo.email;
+    const { oldPassword, newPassword } = req.body;
+
+    try {
+        const user = await AdminService.findUser(email);
+        if(!user) return sendBadRequest(res, 'There is no user with this email address. ');
+
+        const passwordsMatch = await bcrypt.compare(oldPassword, user.password);
+        if(!passwordsMatch) return sendBadRequest(res, 'Invalid credentials. ');
+
+        const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_SALT) || 10)
+        const hashed_password = await bcrypt.hash(newPassword, salt)
+
+        const updatedUser = await AdminService.changePassword(email, hashed_password);
+        if(!updatedUser) return sendInternalServerError(res, 'Something went wrong. There again later. ');
+
+        await changePasswordVerification(user.email);
+        sendOk(res, updatedUser, 'Password successfully changed. ')
     } catch(error) {
         next(error)
     }

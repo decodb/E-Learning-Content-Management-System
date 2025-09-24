@@ -1,7 +1,7 @@
 import express from "express"
 import { authMiddleware } from "../middlewares/auth-middleware.js";
 import { isAdmin } from "../middlewares/admin-middleware.js";
-import { addCourse, addLecturer, categories, courses, getLecturers, lecturers, updateInfo } from "../controllers/admin-controller.js";
+import { addCourse, addLecturer, categories, changePassword, courses, getLecturers, lecturers, updateInfo } from "../controllers/admin-controller.js";
 
 const router = express.Router();
 
@@ -17,5 +17,6 @@ router.post('/addCourse', authMiddleware, isAdmin, addCourse)
 
 // profile
 router.put('/updateInfo/', authMiddleware, isAdmin, updateInfo);
+router.put('/changePassword/', authMiddleware, isAdmin, changePassword);
 
 export default router

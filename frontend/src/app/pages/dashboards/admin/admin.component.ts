@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 @Component({
@@ -11,4 +11,9 @@ import { AuthService } from '../../../services/auth/auth.service';
 export class AdminComponent {
   authService = inject(AuthService);
   loggedInUser = this.authService.getLoggedInUser();
+  showPopUp = signal<boolean>(false);
+
+  togglePopUp() {
+    this.showPopUp.set(!this.showPopUp())
+  }
 }

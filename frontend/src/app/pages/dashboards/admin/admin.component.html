@@ -24,7 +24,23 @@
                 </a>
             </div>
         </div>
-        <div class="bottom">
+        <div class="pop-up" [class.show]="showPopUp()">
+            <div class="backdrop" (click)="togglePopUp()"></div>
+            <div class="top">
+                <ion-icon name="person-outline"></ion-icon>
+                <span>{{ loggedInUser?.email }}</span>
+            </div>
+            <a class="item" routerLink="/dashboard/admin/settings/changePassword">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <span>Change password</span>
+            </a>
+            <div class="item">
+                <ion-icon name="log-out-outline"></ion-icon>
+                <span>Log out</span>
+            </div>
+        </div>
+
+        <div class="bottom" (click)="togglePopUp()">
             @if(loggedInUser?.image === null) {
                 <img src="images/user.png" alt="">
             } @else {
