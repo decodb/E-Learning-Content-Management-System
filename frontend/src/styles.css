@@ -31,7 +31,8 @@ li {
   color: inherit;
 }
 
-input {
+input,
+select {
   padding: 0.5rem 1rem;
   border-radius: 5px;
   border: 1px solid var(--color-light-grey);

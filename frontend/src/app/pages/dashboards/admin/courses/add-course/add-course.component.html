@@ -1,0 +1,49 @@
+<div class="backdrop" (click)="navigate()"></div>
+<dialog open>
+  <h2>Add A Lecturer</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <p>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Eg. Operating Systems" formControlName="name"/>
+    </p>
+
+    <p>
+      <label for="code">Code</label>
+      <input type="text" id="code" name="code" placeholder="Eg. CMPG423" formControlName="code" />
+    </p>
+
+    <p>
+      <label for="email">Description</label>
+      <textarea name="description" rows="6" id="description" formControlName="description"></textarea>
+    </p>
+
+    <p>
+        <label for="category">Category</label>
+        <select name="category" id="category" formControlName="category">
+            @if(categories().length >= 1) {
+                @for(category of categories(); track category.id) {
+                    <option [value]="category.id">{{ category.name }}</option>
+                }
+            }
+        </select>
+    </p>
+
+    <p>
+        <label for="assign">Assign to</label>
+        <select name="assign" id="assign" formControlName="assign">
+            @if(lecturers().length >= 1) {
+                @for(lecturer of lecturers(); track lecturer.id) {
+                    <option [value]="lecturer.id">{{ lecturer.first_name }} {{ lecturer.last_name }}</option>
+                }
+            }
+        </select>
+    </p>
+
+    <button type="submit" class="btn" [disabled]="isLoading()">
+        Add a course
+        @if(isLoading()) {
+            <span class="spinner"></span>
+        }
+    </button>
+  </form>
+</dialog>

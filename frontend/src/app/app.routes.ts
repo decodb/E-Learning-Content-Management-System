@@ -7,6 +7,7 @@ import { authGuard } from './guards/auth/auth.guard';
 import { AddLecturerComponent } from './pages/dashboards/admin/lecturers/add-lecturer/add-lecturer.component';
 import { CoursesComponent } from './pages/dashboards/admin/courses/courses.component';
 import { UpdateSettingsComponent } from './pages/dashboards/admin/settings/update-settings/update-settings.component';
+import { AddCourseComponent } from './pages/dashboards/admin/courses/add-course/add-course.component';
 
 export const routes: Routes = [
     {
@@ -28,7 +29,13 @@ export const routes: Routes = [
         children: [
             {
                 path: 'courses',
-                component: CoursesComponent
+                component: CoursesComponent,
+                children: [
+                    {
+                        path: 'add',
+                        component: AddCourseComponent
+                    }
+                ]
             },
             {
                 path: 'lecturers',

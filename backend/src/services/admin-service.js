@@ -1,5 +1,6 @@
 import pool from "../config/db.js"
 
+// lecturers
 export const lecturersCount = async() => {
   const result = await pool.query(
     `
@@ -69,6 +70,7 @@ export const addLecturer = async (first_name, last_name, email, password, role =
   return result.rows[0];
 };
 
+// courses
 export const coursesCount = async() => {
   const result = await pool.query(
     `
@@ -106,10 +108,44 @@ export const courses = async(searchQuery, per_page, skip) => {
   return result.rows;
 } 
 
-export const addCourse = async() => {
+export const addCourse = async (name, code, description, category, assign) => {
+  const result = await pool.query(
+    `
+      INSERT INTO course (name, code, description, created_at, updated_at, lecturer_id, category_id)
+      VALUES ($1, $2, $3, NOW(), NOW(), $4, $5)
+      RETURNING *
+    `,
+    [name, code, description, assign, category]
+  );
 
+  return result.rows[0];
+};
+
+// category
+export const categories = async() => {
+  const result = await pool.query(
+    `
+      SELECT id, name
+      FROM category
+    `
+  )
+
+  return result.rows;
 }
 
+export const lecturers = async() => {
+  const result = await pool.query(
+    `
+      SELECT id, first_name, last_name
+      FROM users
+      WHERE role_id = 2;
+    `
+  )
+
+  return result.rows;
+}
+
+// profile
 export const updateInfo = async(id, email, bio) => {
   const result = await pool.query(
     ` 

@@ -87,8 +87,37 @@ export const courses = async(req, res, next) => {
 }
 
 export const addCourse = async(req, res, next) => {
+    const {name, code, description, category, assign } = req.body
+    
     try {
+        const newCourse = await AdminService.addCourse(name, code, description, Number(category), Number(assign))
+        if(!newCourse) return sendInternalServerError(res, 'Something went wrong, please try again later. ');
 
+        sendOk(res, newCourse, 'New course successfully created. ');
+    } catch(error) {
+        next(error);
+    }
+}
+
+export const categories = async(req, res, next) => {
+    try {
+        const categories = await AdminService.categories();
+        if(!categories) return sendInternalServerError(res, 'Something went wrong. Please try again later.');
+        if(categories.length <= 0) return sendNotFound(res, 'No categories found');
+
+        sendOk(res, categories, 'Categories successfully found. ')
+    } catch(error) {
+        next(error)
+    }
+}
+
+export const lecturers = async(req, res, next) => {
+    try {
+        const lecturers = await AdminService.lecturers();
+        if(!lecturers) return sendInternalServerError(res, 'Something went wrong. Please try again later.');
+        if(lecturers.length <= 0) return sendNotFound(res, 'No lecturers found. ');
+
+        sendOk(res, lecturers, 'Lecturers successfully found. ');
     } catch(error) {
         next(error);
     }
