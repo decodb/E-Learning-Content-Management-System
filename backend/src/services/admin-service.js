@@ -75,7 +75,7 @@ export const coursesCount = async() => {
   const result = await pool.query(
     `
       SELECT COUNT(*) AS total_courses
-      FROM courses
+      FROM course
     `
   )
 

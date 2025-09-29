@@ -97,3 +97,14 @@ section .container form .row .field ion-icon {
 section .container form .agree {
     font-size: 0.7rem;
 }
+
+.error {
+    display: block;;
+    text-align: center;
+    color: red;
+    border: 1px solid red;
+    border-radius: 7.5px;
+    padding: 0.5rem;
+    background-color: rgb(255, 181, 181);
+    font-size: 0.8rem;
+}

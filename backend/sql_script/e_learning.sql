@@ -41,6 +41,25 @@ CREATE TABLE course (
   category_id INT NOT NULL REFERENCES category(id)
 );
 
+CREATE TABLE course_enrollments (
+  id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  course_id INT NOT NULL REFERENCES course(id) ON DELETE CASCADE,
+  enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  grade VARCHAR(5),
+  status VARCHAR(20) CHECK (status IN ('active', 'completed', 'dropped', 'failed')),
+  UNIQUE (user_id, course_id)
+);
+
+CREATE TABLE reviews (
+  id SERIAL PRIMARY KEY,
+  enrollment_id INT NOT NULL REFERENCES course_enrollments(id),
+  rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+  comment TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (enrollment_id)
+);
+
 -- 1. Create a function that forces code to uppercase
 CREATE OR REPLACE FUNCTION enforce_uppercase_code()
 RETURNS TRIGGER AS $$

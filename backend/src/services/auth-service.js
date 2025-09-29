@@ -11,6 +11,7 @@ export const findUser = async(email) => {
                 u.password,
                 u.image_url, 
                 u.bio, 
+                u.role_id,
                 r.name AS role_name
             FROM users AS u
             LEFT JOIN role AS r ON r.id = u.role_id

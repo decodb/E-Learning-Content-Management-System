@@ -23,6 +23,9 @@
                         <ion-icon name="eye-off-outline" (click)="togglePassword()"></ion-icon>
                     }
                 </p>
+                @if(errorMessage().length > 0) {
+                    <span class="error">{{ errorMessage() }}</span>
+                }
                 
                 <a href="">Forgot Password?</a>
             </div>
