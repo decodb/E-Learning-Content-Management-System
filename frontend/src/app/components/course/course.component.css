@@ -46,6 +46,7 @@
 .course .bottom {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .course .bottom .lecturer {
@@ -66,4 +67,10 @@
 
 .course .bottom .icon ion-icon {
     color: var(--color-orange);
+}
+
+.course .bottom a {
+    font-size: 0.75rem;
+    color: var(--color-black);
+    text-decoration: underline;
 }

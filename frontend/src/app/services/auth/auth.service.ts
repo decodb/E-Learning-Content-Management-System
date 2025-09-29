@@ -12,9 +12,10 @@ export interface UserPayload {
   firstName: string;
   lastName: string;
   email: string;
-  role: number;
-  image?: string;
-  bio?: string;
+  role: string;       
+  roleId: number;    
+  image?: string | null;
+  bio?: string | null;
 }
 
 @Injectable({

@@ -9,6 +9,12 @@ import { CoursesComponent } from './pages/dashboards/admin/courses/courses.compo
 import { UpdateSettingsComponent } from './pages/dashboards/admin/settings/update-settings/update-settings.component';
 import { AddCourseComponent } from './pages/dashboards/admin/courses/add-course/add-course.component';
 import { ChangePasswordComponent } from './pages/dashboards/admin/change-password/change-password.component';
+import { LecturerComponent } from './pages/dashboards/lecturer/lecturer.component';
+import { adminGuard } from './guards/admin/admin.guard';
+import { lecturerGuard } from './guards/lecturer/lecturer.guard';
+import { ModulesComponent } from './pages/dashboards/lecturer/modules/modules.component';
+import { ProfileComponent } from './pages/dashboards/lecturer/profile/profile.component';
+import { ModuleComponent } from './pages/dashboards/lecturer/module/module.component';
 
 export const routes: Routes = [
     {
@@ -26,7 +32,7 @@ export const routes: Routes = [
         path: 'dashboard/admin',
         component: AdminComponent,
         title: 'E-Learning | Admin',
-        canActivate: [authGuard],
+        canActivate: [authGuard, adminGuard],
         children: [
             {
                 path: 'courses',
@@ -65,6 +71,26 @@ export const routes: Routes = [
             {
                 path: 'changePassword',
                 component: ChangePasswordComponent
+            }
+        ]
+    },
+    {
+        path: 'dashboard/lecturer',
+        component: LecturerComponent,
+        title: 'E-Learning | Lecturer',
+        canActivate: [authGuard,lecturerGuard],
+        children: [
+            {
+                path: 'modules',
+                component: ModulesComponent,
+            },
+            {
+                path: 'modules/:id',
+                component: ModuleComponent
+            },
+            {
+                path: 'profile',
+                component: ProfileComponent
             }
         ]
     }

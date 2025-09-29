@@ -44,9 +44,15 @@ export class SignInComponent {
     this.authService.login(userCredentials)
       .subscribe({
         next: ({ data }) => {
+          console.log(data)
           localStorage.setItem('token', data)
           this.isLoading.set(false)
-          this.router.navigate(['/dashboard/admin'])
+          const loggedInUser = this.authService.getLoggedInUser();
+          if(loggedInUser?.role === "Admin") {
+            this.router.navigate(['/dashboard/admin'])
+          } else {
+            this.router.navigate(['/dashboard/lecturer']);
+          }
         },
         error: ({ error }) => {
           console.log(error)

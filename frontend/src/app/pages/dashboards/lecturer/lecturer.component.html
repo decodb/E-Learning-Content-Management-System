@@ -1,0 +1,55 @@
+<section>
+    <aside>
+        <div class="header">
+            <ion-icon name="logo-electron"></ion-icon>
+            <h2>E-Learning</h2>
+        </div>
+        <div class="links">
+            <div class="row">
+                <p class="title">Community</p>
+                <a routerLink="/dashboard/lecturer/modules">
+                    <ion-icon name="book-outline"></ion-icon>
+                    <span>Modules</span>
+                </a>
+            </div>
+            <div class="row">
+                <p class="title">Preferences</p>
+                <a routerLink="/dashboard/lecturer/profile">
+                    <ion-icon name="settings-outline"></ion-icon>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </div>
+        <div class="pop-up" [class.show]="showPopUp()">
+            <div class="backdrop" (click)="togglePopUp()"></div>
+            <div class="top">
+                <ion-icon name="person-outline"></ion-icon>
+                <span>{{ loggedInUser?.email }}</span>
+            </div>
+            <a class="item" routerLink="/dashboard/admin/settings/changePassword">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <span>Change password</span>
+            </a>
+            <div class="item">
+                <ion-icon name="log-out-outline"></ion-icon>
+                <span>Log out</span>
+            </div>
+        </div>
+
+        <div class="bottom" (click)="togglePopUp()">
+            @if(loggedInUser?.image === null) {
+                <img src="images/user.png" alt="">
+            } @else {
+                <img [src]="loggedInUser?.image" alt="">
+            }
+            
+            <div class="user">
+                <p>{{ loggedInUser?.firstName }}</p>
+                <span>{{ loggedInUser?.role }}</span>
+            </div>
+        </div>
+    </aside>
+    <main>
+        <router-outlet />
+    </main>
+</section>

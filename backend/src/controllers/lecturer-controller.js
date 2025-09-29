@@ -1,5 +1,5 @@
 import * as LecturerService from '../services/lecturer-service.js'
-import { sendOk } from '../utils/http.util.js';
+import { sendBadRequest, sendOk } from '../utils/http.util.js';
 
 export const courses = async(req, res, next) => {
     const { id, roleId } = req.userInfo;
@@ -20,7 +20,22 @@ export const courses = async(req, res, next) => {
         const data =  { currentPage: page, totalCourses: parseInt(numberOfCourses),
                         totalPages: numOfPages, courses: courses };
 
-        sendOk(res, data, 'Courses successfully found. ');
+        return sendOk(res, data, 'Courses successfully found. ');
+    } catch(error) {
+        next(error)
+    }
+}
+
+export const course = async(req, res, next) => {
+    const id = req.params.id;
+
+    try {
+        if(!id || isNaN(id)) return sendBadRequest(res, 'Which course? ');
+
+        const courseDetails = await LecturerService.course(id);
+        if(!courseDetails) sendBadRequest(res, "The course requested isn't available. ");
+        
+        return sendOk(res, courseDetails, "The course requested is found. ");
     } catch(error) {
         next(error)
     }

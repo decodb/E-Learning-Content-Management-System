@@ -85,7 +85,8 @@ export const coursesCount = async() => {
 export const courses = async(searchQuery, per_page, skip) => {
   const result = await pool.query(
     `
-      SELECT 
+      SELECT
+        c.id,
         c.name,
         c.code,
         c.description,
