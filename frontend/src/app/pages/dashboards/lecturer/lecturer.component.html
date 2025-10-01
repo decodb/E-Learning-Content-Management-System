@@ -7,17 +7,15 @@
         <div class="links">
             <div class="row">
                 <p class="title">Community</p>
-                <a routerLink="/dashboard/lecturer/modules">
-                    <ion-icon name="book-outline"></ion-icon>
-                    <span>Modules</span>
-                </a>
+                @for(link of mainLinks; track link.label) {
+                    <app-dashboard-nav-link [inputLink]="link"/>
+                }
             </div>
             <div class="row">
                 <p class="title">Preferences</p>
-                <a routerLink="/dashboard/lecturer/profile">
-                    <ion-icon name="settings-outline"></ion-icon>
-                    <span>Profile</span>
-                </a>
+                @for(link of profileLinks; track link.label) {
+                    <app-dashboard-nav-link [inputLink]="link"/>
+                }
             </div>
         </div>
         <div class="pop-up" [class.show]="showPopUp()">

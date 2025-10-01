@@ -23,6 +23,10 @@ section aside .header {
     padding: 0.75rem 1rem;
 }
 
+section aside .header img {
+    width: 30%;
+}
+
 section aside .header ion-icon {
     font-size: 1.5rem;
 }
@@ -43,23 +47,6 @@ section aside .links .title {
     font-weight: 500;
     color: var(--color-light-grey);
     margin-bottom: 0.25rem;
-}
-
-section aside .links a {
-    padding: 0.5rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 5px;
-}
-
-section aside .links ion-icon {
-    color: var(--color-orange);
-}
-
-section aside .links span {
-    color: var(--color-black);
 }
 
 section aside .bottom {

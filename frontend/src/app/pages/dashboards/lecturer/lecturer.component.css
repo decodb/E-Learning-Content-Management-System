@@ -45,23 +45,6 @@ section aside .links .title {
     margin-bottom: 0.25rem;
 }
 
-section aside .links a {
-    padding: 0.5rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 5px;
-}
-
-section aside .links ion-icon {
-    color: var(--color-orange);
-}
-
-section aside .links span {
-    color: var(--color-black);
-}
-
 section aside .bottom {
     position: absolute;
     bottom: 0.25rem;

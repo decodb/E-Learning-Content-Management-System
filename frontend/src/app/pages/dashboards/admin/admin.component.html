@@ -1,27 +1,20 @@
 <section>
     <aside>
         <div class="header">
-            <ion-icon name="logo-electron"></ion-icon>
-            <h2>E-Learning</h2>
+            <img src="images/orange.png" alt="">
         </div>
         <div class="links">
             <div class="row">
                 <p class="title">Community</p>
-                <a routerLink="/dashboard/admin/courses">
-                    <ion-icon name="book-outline"></ion-icon>
-                    <span>Courses</span>
-                </a>
-                <a routerLink="/dashboard/admin/lecturers">
-                    <ion-icon name="people-outline"></ion-icon>
-                    <span>Lecturers</span>
-                </a>
+                @for(link of mainLinks; track link.label) {
+                    <app-dashboard-nav-link [inputLink]="link"/>
+                }
             </div>
             <div class="row">
                 <p class="title">Preferences</p>
-                <a routerLink="/dashboard/admin/settings">
-                    <ion-icon name="settings-outline"></ion-icon>
-                    <span>Settings</span>
-                </a>
+                @for(link of settingsLink; track link.label) {
+                    <app-dashboard-nav-link [inputLink]="link"/>
+                }
             </div>
         </div>
         <div class="pop-up" [class.show]="showPopUp()">
