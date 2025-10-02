@@ -1,1 +1,66 @@
-<p>module works!</p>
+<section>
+    <div class="top" [class.loading]="isLoading()">
+        @if(isLoading()) {
+            <div class="skeleton">
+                <p class="header">
+                    <span class="skeleton-text short"></span> 
+                    <span class="skeleton-text short"></span> 
+                    <span class="skeleton-text medium"></span>
+                </p>
+
+                <div class="content">
+                    <h2 class="skeleton-text large"></h2>
+                    <div class="rating">
+                    <div class="count">
+                        <span class="skeleton-icon"></span>
+                        <span class="skeleton-text tiny"></span>
+                    </div>
+                    <span class="skeleton-text small"></span>
+                    </div>
+                    <p>
+                    <span class="skeleton-text line"></span>
+                    <span class="skeleton-text line"></span>
+                    <span class="skeleton-text line short"></span>
+                    <span class="skeleton-text line medium"></span>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    <p><span class="skeleton-text short"></span></p>
+                    <p>
+                    <span class="skeleton-icon"></span>
+                    <span class="skeleton-text small"></span>
+                    </p>
+                </div>
+            </div>
+        } @else {
+            <p class="header">All courses / {{ courseData()?.category_name }} / <span>{{ courseData()?.name }}</span></p>
+            <div class="content">
+                <h2>{{ courseData()?.name }}</h2>
+                <div class="rating">
+                    <div class="count">
+                        <ion-icon name="star"></ion-icon>
+                        <span>{{ courseData()?.average_rating }}</span>
+                    </div>
+                    <span class="students">{{courseData()?.total_reviews }}</span>
+                </div>
+                <p>{{ courseData()?.description }}</p>
+            </div>
+            <div class="footer">
+                <p>Proudly sponsored by <br> Orange team</p>
+                <p>
+                    <ion-icon name="pencil-outline"></ion-icon>
+                    <span>Last updated: {{ courseData()?.updated_at }}</span>
+                </p>
+            </div>
+        }
+
+    </div>
+    <div class="nav">
+        <div class="links">
+            @for(item of navItems; track item.name) {
+                <app-course-nav-link [inputLink]="item"/>
+            }
+        </div>
+    </div>
+</section>

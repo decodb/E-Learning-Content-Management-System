@@ -1,0 +1,25 @@
+.link {
+    display: flex;
+    padding: 0.75rem;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    border-left: 1px solid var(--color-light-grey);
+    color: black;
+}
+
+.link:nth-child(0) {
+    border-right: none;
+}
+
+.link:hover {
+    background-color: white;
+    border-radius: 5px;
+    color: var(--color-orange);
+}
+
+.link.active {
+    background-color: white;
+    color: var(--color-orange);
+    border-radius: 5px;
+}

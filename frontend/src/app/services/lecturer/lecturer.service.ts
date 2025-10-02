@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CoursesData } from '../admin/courses/courses.model';
+import { Course } from './lecturer.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LecturerService {
   private modulesUrl = 'http://localhost:3001/api/lecturer/courses';
+  private moduleUrl = '';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -15,5 +17,9 @@ export class LecturerService {
     const params = { search: searchQuery };
     
     return this.httpClient.get<CoursesData>(this.modulesUrl, { params });
+  }
+
+  getCourse(id: string): Observable<any> {
+    return this.httpClient.get<Course>(`http://localhost:3001/api/lecturer/courses/${id}`);
   }
 }

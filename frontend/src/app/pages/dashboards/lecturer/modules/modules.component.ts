@@ -3,7 +3,6 @@ import { CourseComponent } from '../../../../components/course/course.component'
 import { CourseSkeletonComponent } from '../../../../components/course-skeleton/course-skeleton.component';
 import { CoursesData } from '../../../../services/admin/courses/courses.model';
 import { LecturerService } from '../../../../services/lecturer/lecturer.service';
-import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-modules',

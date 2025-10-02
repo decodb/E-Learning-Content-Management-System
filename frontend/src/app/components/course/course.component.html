@@ -17,7 +17,7 @@
             <span>{{ course().first_name }} {{ course().last_name }}</span>
         </div>
         @if(loggedInUser()?.role === "Lecturer") {
-            <a [routerLink]="['/dashboard/lecturer/module', course().id]">View more</a>
+            <a [routerLink]="['/dashboard/lecturer/modules', course().id]">View more</a>
         } @else {
             <div class="icon"><ion-icon name="arrow-redo-outline"></ion-icon></div>
         }

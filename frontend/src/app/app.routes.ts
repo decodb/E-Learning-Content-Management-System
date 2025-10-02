@@ -15,6 +15,10 @@ import { lecturerGuard } from './guards/lecturer/lecturer.guard';
 import { ModulesComponent } from './pages/dashboards/lecturer/modules/modules.component';
 import { ProfileComponent } from './pages/dashboards/lecturer/profile/profile.component';
 import { ModuleComponent } from './pages/dashboards/lecturer/module/module.component';
+import { CourseContentComponent } from './pages/dashboards/lecturer/module/course-content/course-content.component';
+import { AssessmentsComponent } from './pages/dashboards/lecturer/module/assessments/assessments.component';
+import { ReviewsComponent } from './pages/dashboards/lecturer/module/reviews/reviews.component';
+import { StudentsComponent } from './pages/dashboards/lecturer/module/students/students.component';
 
 export const routes: Routes = [
     {
@@ -86,7 +90,25 @@ export const routes: Routes = [
             },
             {
                 path: 'modules/:id',
-                component: ModuleComponent
+                component: ModuleComponent,
+                children: [
+                    {
+                        path: 'content',
+                        component: CourseContentComponent,
+                    },
+                    {
+                        path: 'assessments',
+                        component: AssessmentsComponent, 
+                    },
+                    {
+                        path: 'reviews',
+                        component: ReviewsComponent
+                    },
+                    {
+                        path: 'students',
+                        component: StudentsComponent
+                    }
+                ]
             },
             {
                 path: 'profile',
