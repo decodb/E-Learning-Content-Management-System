@@ -54,3 +54,33 @@ export const course = async(id) => {
   
   return result.rows[0];
 }
+
+export const studentsCount = async(id) => {
+    const result = await pool.query(
+        `
+            SELECT COUNT(*) AS total_students
+            FROM course_enrollments
+            WHERE course_id = $1;
+        `, [id]
+    )
+
+    return result.rows[0].total_courses;
+}
+
+export const students = async(id, searchQuery, per_page, skip) => {
+  const result = await pool.query(
+    `
+      SELECT u.id, u.first_name, u.last_name, u.email, u.image_url, c.enrolled_at, c.grade, c.status
+      FROM (
+        SELECT * 
+        FROM users 
+        WHERE first_name ILIKE '%' || $1 || '%' OR last_name ILIKE '%' || $2 || '%'
+        LIMIT $3 OFFSET $4
+      ) AS u
+      LEFT JOIN course_enrollments c ON u.id = c.user_id
+      WHERE c.course_id = $5;
+    `, [searchQuery, searchQuery, per_page, skip, id]
+  )
+
+  return result.rows;
+}

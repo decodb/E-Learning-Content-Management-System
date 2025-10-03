@@ -1,7 +1,7 @@
 <div class="container">
     <div class="header">
         <h2>Students enrolled for this course</h2>
-        <a class="btn">
+        <a class="btn" routerLink="add">
             <ion-icon name="person-add-outline"></ion-icon>
             <span>Add Student</span>
         </a>
@@ -15,8 +15,22 @@
             <span>Actions</span>
         </div>
         <div class="students">
-            <app-student />
-            <app-student />
+            @if(isLoading()) {
+                <div class="skeleton-container">
+                    <div class="skeleton skeleton-full"></div>
+                    <div class="skeleton skeleton-70"></div>
+                    <div class="skeleton skeleton-35"></div>
+                </div>
+            } @else {
+                @if(studentsData().students.length === 0 && errorMessage().length > 0) {
+                    <p class="text">{{ errorMessage() }}</p>
+                } @else {
+                    @for(student of studentsData().students; track student.id) {
+                        <app-student [studentData]="student"/>
+                    }
+                }
+            }
         </div>
     </div>
 </div>
+<router-outlet />

@@ -36,3 +36,9 @@
     flex-direction: column;
     overflow-y: hidden;
 }
+
+.text {
+    text-align: center;
+    padding: 2rem 0;
+    color: red;
+}

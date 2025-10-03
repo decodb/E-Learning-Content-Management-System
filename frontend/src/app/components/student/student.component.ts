@@ -9,5 +9,5 @@ import { Student } from './student.model';
   styleUrl: './student.component.css'
 })
 export class StudentComponent {
-  //studentData = input.required<Student>()
+  studentData = input.required<Student>()
 }

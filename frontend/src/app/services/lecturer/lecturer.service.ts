@@ -10,7 +10,6 @@ import { Student } from '../../components/student/student.model';
 })
 export class LecturerService {
   private modulesUrl = 'http://localhost:3001/api/lecturer/courses';
-  private studentsUrl = '';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -24,7 +23,9 @@ export class LecturerService {
     return this.httpClient.get<Course>(`http://localhost:3001/api/lecturer/courses/${id}`);
   }
 
-  //getStudents(): Observable<any> {
-    //return this.httpClient.get<Student>();
-  //}
+  getStudents(id: string ,searchQuery: string): Observable<any> {
+    const params = { search: searchQuery };
+
+    return this.httpClient.get<Student>(`http://localhost:3001/api/lecturer/courses/${id}/students`, { params });
+  }
 }

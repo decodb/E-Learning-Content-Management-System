@@ -19,6 +19,7 @@ import { CourseContentComponent } from './pages/dashboards/lecturer/module/cours
 import { AssessmentsComponent } from './pages/dashboards/lecturer/module/assessments/assessments.component';
 import { ReviewsComponent } from './pages/dashboards/lecturer/module/reviews/reviews.component';
 import { StudentsComponent } from './pages/dashboards/lecturer/module/students/students.component';
+import { AddStudentComponent } from './pages/dashboards/lecturer/module/students/add-student/add-student.component';
 
 export const routes: Routes = [
     {
@@ -106,7 +107,13 @@ export const routes: Routes = [
                     },
                     {
                         path: 'students',
-                        component: StudentsComponent
+                        component: StudentsComponent,
+                        children: [
+                            {
+                                path: 'add',
+                                component: AddStudentComponent
+                            }
+                        ]
                     }
                 ]
             },
