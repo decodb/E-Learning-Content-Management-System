@@ -28,6 +28,15 @@ export const sendLecturer = async(email, password) => {
     })
 }
 
+export const sendStudent = async(first_name, last_name, email, password, moduleName) => {
+    await transporter.sendMail({
+        from: `"no-reply" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: 'E-Learning Software. ',
+        html: _buildStudentEnrollmentHTML(first_name, last_name, email, password, moduleName)
+    })
+}
+
 export const changePasswordVerification = async(email) => {
     await transporter.sendMail({
         from: `"no-reply" <${process.env.EMAIL_USER}>`,
@@ -234,6 +243,80 @@ export const _buildPasswordChangedHTML = (email) => {
           <td style="padding:20px; border-top:1px solid #ddd; background:#f9f9f9; font-size:12px; color:#888;">
             <p style="margin:0; font-size:13px;">
               E-Learning Software, helping you manage your learning content securely.
+            </p>
+            <p style="margin:6px 0 0 0;">&copy; 2025 E-Learning. All rights reserved.</p>
+          </td>
+        </tr>
+
+      </table>
+
+    </body>
+    </html>
+  `;
+};
+
+export const _buildStudentEnrollmentHTML = (first_name, last_name, email, password, moduleName) => {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Module Enrollment - E-Learning Software</title>
+    </head>
+    <body style="margin:0; padding:0; font-family: Poppins, sans-serif; background-color: #f9f9f9;">
+
+      <table align="center" cellpadding="0" cellspacing="0" width="100%" 
+            style="max-width:600px; margin:10px auto; background: #ffffff; 
+                    border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08); 
+                    overflow:hidden; text-align:center;">
+        
+        <!-- Header -->
+        <tr>
+          <td style="padding:20px; display:flex; align-items:center; justify-content:center; background-color: #f4f4f4;">
+            <span style="font-size:20px; font-weight:bold; color: #F56E0F;">E-Learning Software Team</span>
+          </td>
+        </tr>
+
+        <!-- Title -->
+        <tr>
+          <td style="padding:32px 24px 16px 24px;">
+            <h3 style="margin:0; font-size:22px; font-weight:500; color: #333;">
+              Hi ${first_name} ${last_name}, you are now enrolled in a new module!
+            </h3>
+          </td>
+        </tr>
+
+        <!-- Message -->
+        <tr>
+          <td style="padding:0 32px 16px 32px;">
+            <p style="font-size:15px; line-height:1.6; color: #555; margin:0;">
+              Congratulations! You have been successfully enrolled in the module: 
+              <strong>${moduleName}</strong>.
+            </p>
+            <p style="font-size:15px; line-height:1.6; color: #555; margin:16px 0 0 0;">
+              You can log in using the following credentials:
+            </p>
+            <ul style="font-size:15px; line-height:1.6; color: #555; margin:8px 0 0 0; padding-left: 20px; list-style-type:none;">
+              <li><strong>Email:</strong> ${email}</li>
+              <li><strong>Password:</strong> ${password}</li>
+            </ul>
+            <p style="font-size:15px; line-height:1.6; color: #555; margin:16px 0 0 0;">
+              Please change your password after your first login to keep your account secure.
+            </p>
+            <a href="https://your-app-login-link.com" 
+               style="display:inline-block; margin-top:20px; padding:12px 20px; 
+                      background-color: #F56E0F; color: #fff; text-decoration:none; 
+                      border-radius:6px; font-size:15px; font-weight:500;">
+               Login
+            </a>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="padding:20px; border-top:1px solid #ddd; background:#f9f9f9; font-size:12px; color:#888;">
+            <p style="margin:0; font-size:13px;">
+              E-Learning Software, helping you manage your learning content.
             </p>
             <p style="margin:6px 0 0 0;">&copy; 2025 E-Learning. All rights reserved.</p>
           </td>

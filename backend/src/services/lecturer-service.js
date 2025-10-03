@@ -84,3 +84,47 @@ export const students = async(id, searchQuery, per_page, skip) => {
 
   return result.rows;
 }
+
+export const createStudent = async(first_name, last_name, email, password) => {
+  const result = await pool.query(
+    `
+      INSERT INTO users(first_name, last_name, email, password, created_at, role_id)
+      VALUES($1, $2, $3, $4,NOW(), 3) RETURNING *
+    `, [first_name, last_name, email, password]
+  )
+  
+  return result.rows[0];
+}
+
+export const registerStudent = async(student_id, course_id) => {
+  const result = await pool.query(
+    `
+      INSERT INTO course_enrollments(user_id, course_id, enrolled_at)
+      VALUES($1, $2, NOW()) RETURNING *
+    `, [student_id, course_id]
+  )
+
+  return result.rows[0];
+}
+
+export const student = async(email) => {
+  const result = await pool.query(
+    `
+      SELECT * FROM users
+      WHERE email=$1
+    `, [email]
+  )
+
+  return result.rows[0]
+}
+
+export const module = async(id) => {
+  const result = await pool.query(
+    `
+      SELECT * FROM course
+      WHERE id=$1
+    `, [id]
+  )
+
+  return result.rows[0]
+}

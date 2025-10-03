@@ -1,5 +1,17 @@
 import * as LecturerService from '../services/lecturer-service.js'
-import { sendBadRequest, sendInternalServerError, sendNotFound, sendOk } from '../utils/http.util.js';
+import { sendBadRequest, sendConflict, sendInternalServerError, sendNotFound, sendOk } from '../utils/http.util.js';
+import bcrypt from 'bcrypt'
+import { sendStudent } from '../utils/mailer.util.js';
+
+function generateRandomPassword(length = 12) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
+    let password = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        password += chars[randomIndex];
+    }
+    return password;
+}
 
 export const courses = async(req, res, next) => {
     const { id, roleId } = req.userInfo;
@@ -63,6 +75,38 @@ export const students = async(req, res, next) => {
 
         return sendOk(res, data, 'Students successfully found. ');
     } catch(error) {
+        next(error)
+    }
+}
+
+export const createStudent = async(req, res, next) => {
+    const course_id = req.params.id;
+    const { first_name, last_name, email } = req.body;
+
+    try {
+        const student = await LecturerService.student(email);
+        if(student) return sendConflict(res, 'A student with this email already exists. ');
+
+        const generatedPassword = generateRandomPassword();
+        const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_SALT) || 10);
+        const hashed_password = await bcrypt.hash(generatedPassword, salt);
+
+        const newUser = await LecturerService.createStudent(first_name, last_name, email, hashed_password);
+        if(!newUser) return sendInternalServerError(res, 'Something went wrong. Please try again later. ');
+
+        const newlyRegisteredStudent = await LecturerService.registerStudent(newUser.id, course_id);
+        if(!newlyRegisteredStudent) return sendInternalServerError(res, 'Something went wrong. Please try again later. ');
+
+        const module = await LecturerService.module(course_id);
+        if(!module) return sendInternalServerError(res, 'Something went wrong. Please try again. ');
+
+        await sendStudent(newUser.first_name, newUser.last_name, newUser.email, generatedPassword, module.name);
+
+        const data = { user: newUser, enrollment: newlyRegisteredStudent };
+
+        sendOk(res, data, 'A student successfully added to the course. ');
+
+    }catch(error) {
         next(error)
     }
 }
