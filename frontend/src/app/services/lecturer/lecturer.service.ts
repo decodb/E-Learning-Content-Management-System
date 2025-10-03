@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CoursesData } from '../admin/courses/courses.model';
-import { Course } from './lecturer.model';
+import { AddStudentResponse, Course } from './lecturer.model';
 import { Student } from '../../components/student/student.model';
+import { NewStudent } from '../../pages/dashboards/lecturer/module/students/add-student/student.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,9 @@ export class LecturerService {
     const params = { search: searchQuery };
 
     return this.httpClient.get<Student>(`http://localhost:3001/api/lecturer/courses/${id}/students`, { params });
+  }
+
+  addStudent(id: string, data: NewStudent): Observable<any> {
+    return this.httpClient.post<AddStudentResponse>(`http://localhost:3001/api/lecturer/courses/${id}/students/add`, data);
   }
 }

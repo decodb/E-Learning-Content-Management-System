@@ -40,3 +40,8 @@ form {
 button {
     margin-top: 1rem;
 }
+
+label span {
+  font-size: 0.75rem;
+  color: var(--color-orange);
+}

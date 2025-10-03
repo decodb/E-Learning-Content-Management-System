@@ -40,7 +40,6 @@ export class StudentsComponent implements OnInit {
     this.lecturerService.getStudents(id, query)
       .subscribe({
         next: ({ data }) => {
-          console.log(data);
           this.studentsData.set({
             currentPage: data.currentPage,
             totalStudents: data.totalLecturers,

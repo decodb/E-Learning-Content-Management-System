@@ -99,8 +99,8 @@ export const createStudent = async(first_name, last_name, email, password) => {
 export const registerStudent = async(student_id, course_id) => {
   const result = await pool.query(
     `
-      INSERT INTO course_enrollments(user_id, course_id, enrolled_at)
-      VALUES($1, $2, NOW()) RETURNING *
+      INSERT INTO course_enrollments(user_id, course_id, enrolled_at, status)
+      VALUES($1, $2, NOW(), 'active') RETURNING *
     `, [student_id, course_id]
   )
 

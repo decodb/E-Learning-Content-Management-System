@@ -11,8 +11,12 @@
             <span class="email">{{ studentData().email }}</span>
         </div>
     </div>
-    <span class="date"><ion-icon name="calendar-outline"></ion-icon>{{ studentData().date }}</span>
-    <span class="grade">{{ studentData().grade }}</span>
+    <span class="date"><ion-icon name="calendar-outline"></ion-icon>{{ studentData().enrolled_at.split("T")[0] }}</span>
+    @if(studentData().grade === null) {
+        <span class="grade">-</span>
+    } @else {
+        <span class="grade">{{ studentData().grade }}</span>
+    }
     <span class="status">{{ studentData().status }}  </span>
     <div class="buttons">
         <a class="btn"><ion-icon name="pencil-outline"></ion-icon>Edit</a>

@@ -1,25 +1,24 @@
-<p>add-student works!</p>
-<div class="backdrop"></div>
+<div class="backdrop" (click)="navigate()"></div>
 <dialog open>
-  <h2>Add A Lecturer</h2>
-  <form  >
+  <h2>Add Student</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" >
     <p>
-      <label for="first_name">First_name</label>
+      <label for="first_name">First_name <span>*required</span></label>
       <input type="text" id="first_name" name="first_name" formControlName="first_name"/>
     </p>
 
     <p>
-      <label for="last_name">Last_name</label>
+      <label for="last_name">Last_name  <span>*required</span> </label>
       <input type="text" id="last_name" name="last_name" formControlName="last_name" />
     </p>
 
     <p>
-      <label for="email">Email</label>
+      <label for="email">Email <span>*required</span></label>
       <input type="email" id="email" name="email" formControlName="email" />
     </p>
 
     <button type="submit" class="btn" [disabled]="isLoading()">
-        Add a lecturer
+        Add a student
         @if(isLoading()) {
             <span class="spinner"></span>
         }

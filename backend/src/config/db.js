@@ -13,7 +13,7 @@ const pool = new pkg.Pool({
 })
 
 pool.connect()
-    .then(() => console.log("PostgreSQL Connected Successfully 🚀"))
+    .then(() => console.log("PostgreSQL Connected Successfully. "))
     .catch(err => console.error("PostgreSQL Connection Error:", err));
 
 export default pool
