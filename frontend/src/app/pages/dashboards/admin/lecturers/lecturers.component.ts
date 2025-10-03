@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './lecturers.component.css'
 })
 export class LecturersComponent implements OnInit {
-  searchQuery = signal('');
+  searchQuery = signal<string>('');
   lecturersData = signal<LecturersData>({
     currentPage: 1,
     totalLecturers: 0,

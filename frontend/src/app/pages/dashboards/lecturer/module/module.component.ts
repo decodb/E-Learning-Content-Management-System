@@ -1,12 +1,12 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { LecturerService } from '../../../../services/lecturer/lecturer.service';
 import { Course, Item } from '../../../../services/lecturer/lecturer.model';
 import { CourseNavLinkComponent } from '../../../../components/links/course-nav-link/course-nav-link.component';
 
 @Component({
   selector: 'app-module',
-  imports: [CourseNavLinkComponent],
+  imports: [CourseNavLinkComponent, RouterOutlet],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './module.component.html',
   styleUrl: './module.component.css'

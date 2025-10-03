@@ -1,0 +1,54 @@
+.student {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--color-lighter-grey);
+}
+
+.student .profile {
+    display: flex;
+    
+}
+
+.student .profile img {
+    width: 15%;
+    height: 3rem;
+}
+
+.student .profile .details {
+    display: flex;
+    flex-direction: column;
+}
+
+.student .profile .details .email {
+    font-size: 0.8rem;
+    color: var(--color-light-grey);
+}
+
+.student .date {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    color: var(--color-light-grey);
+}
+
+.student .status {
+    color: green;
+    width: max-content;
+    text-decoration: underline;
+}
+
+.student .buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.student .buttons a:first-child {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.student .buttons a:last-child {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
