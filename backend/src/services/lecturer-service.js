@@ -128,3 +128,32 @@ export const module = async(id) => {
 
   return result.rows[0]
 }
+
+export const reviews = async(course_id, per_page, skip) => {
+  const result = await pool.query(
+    `
+      SELECT r.id, r.rating, r.comment, r.created_at, u.first_name, u.last_name, u.image_url
+      FROM reviews r
+      INNER JOIN course_enrollments c ON c.id = r.enrollment_id
+      INNER JOIN users u ON u.id = c.user_id
+      WHERE u.role_id = 3 AND c.course_id = $1
+      ORDER BY r.created_at DESC
+      LIMIT $2 OFFSET $3;
+    `, [course_id ,per_page, skip]
+  )
+
+  return result.rows;
+}
+
+export const countReviews = async(id) => {
+  const result = await pool.query(
+    `
+      SELECT COUNT(*) AS total_reviews
+      FROM reviews r
+      INNER JOIN course_enrollments c ON c.id = r.enrollment_id
+      WHERE c.course_id = $1;
+    `, [id]
+  )
+
+  return result.rows;
+}

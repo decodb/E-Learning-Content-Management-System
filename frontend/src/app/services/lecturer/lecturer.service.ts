@@ -5,6 +5,7 @@ import { CoursesData } from '../admin/courses/courses.model';
 import { AddStudentResponse, Course } from './lecturer.model';
 import { Student } from '../../components/student/student.model';
 import { NewStudent } from '../../pages/dashboards/lecturer/module/students/add-student/student.model';
+import { Review } from '../../pages/dashboards/lecturer/module/reviews/review.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,9 @@ export class LecturerService {
 
   addStudent(id: string, data: NewStudent): Observable<any> {
     return this.httpClient.post<AddStudentResponse>(`http://localhost:3001/api/lecturer/courses/${id}/students/add`, data);
+  }
+
+  getReviews(id: string): Observable<any> {
+    return this.httpClient.get<Review>(`http://localhost:3001/api/lecturer/courses/${id}/reviews`);
   }
 }

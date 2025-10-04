@@ -110,3 +110,27 @@ export const createStudent = async(req, res, next) => {
         next(error)
     }
 }
+
+export const reviews = async(req, res, next) => {
+    const courseId = req.params.id;
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    try {
+        const numberOfReviews = await LecturerService.countReviews(courseId);
+        const numOfPages = Math.ceil(numberOfReviews / limit);
+
+        const studentsReviews = await LecturerService.reviews(courseId, limit, skip);
+        if(!studentsReviews) return sendInternalServerError(res, 'Something went wrong. Please try again later. ');
+        if(studentsReviews.length <= 0) return sendNotFound(res, 'No student has written a review. ');
+
+        const data =  { currentPage: page, totalReviews: numberOfReviews,
+                        totalPages: numOfPages, reviews: studentsReviews };
+
+        sendOk(res, data, 'Reviews successfully found. ');
+    } catch(error) {
+        next(error)
+    }
+}
