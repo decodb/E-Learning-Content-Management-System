@@ -2,6 +2,9 @@ import * as LecturerService from '../services/lecturer-service.js'
 import { sendBadRequest, sendConflict, sendInternalServerError, sendNotFound, sendOk } from '../utils/http.util.js';
 import bcrypt from 'bcrypt'
 import { sendStudent } from '../utils/mailer.util.js';
+import { uploadToCloudinary } from '../utils/cloudinary.util.js';
+import path from 'path'
+import fs from "fs";
 
 function generateRandomPassword(length = 12) {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
@@ -130,6 +133,57 @@ export const reviews = async(req, res, next) => {
                         totalPages: numOfPages, reviews: studentsReviews };
 
         sendOk(res, data, 'Reviews successfully found. ');
+    } catch(error) {
+        next(error)
+    }
+}
+
+export const uploadFile = async(req, res, next) => {
+    const course_id = req.params.id;
+    const { title } = req.body;
+    const file = req.file;
+
+    try {
+        if(!file) return sendBadRequest(res, 'No file uploaded. ');
+
+        const extension = path.extname(file.originalname).toLowerCase();
+        const resourceType = extension === ".mp4" ? "video"  : extension === ".png" || extension === ".jpg" || extension === ".jpeg" ? "image" : "raw"; 
+
+        const { url, public_id } = await uploadToCloudinary(file.path, resourceType);
+
+        const newVideo = await LecturerService.createFile(title, file.mimetype, url, public_id, file.size, course_id);
+        if(!newVideo) return sendInternalServerError(res, 'Something went wrong. Please try again later. ');
+
+        const module = await LecturerService.course(newVideo.module_id);
+        if(!module) return sendInternalServerError(res, 'Something went wrong while fetching the course for this video. ');
+
+        fs.unlinkSync(file.path);
+        
+        return sendOk(res, newVideo, 'Video successfully uploaded. ')
+    } catch(error) {
+        next(error);
+    }
+}
+
+export const files = async(req, res, next) => {
+    const courseId = req.params.id;
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    try {
+        const numberOfFiles = await LecturerService.countFiles(courseId);
+        const numOfPages = Math.ceil(numberOfFiles / limit);
+
+        const courseFiles = await LecturerService.files(courseId, limit, skip);
+        if(!courseFiles) return sendInternalServerError(res, 'Something went wrong. Please try again later. ');
+        if(courseFiles.length <= 0) return sendNotFound(res, 'No student has written a review. ');
+
+        const data =  { currentPage: page, totalFiles: numberOfFiles,
+                        totalPages: numOfPages, files: courseFiles };
+
+        sendOk(res, data, 'Files successfully found. ');
     } catch(error) {
         next(error)
     }

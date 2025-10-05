@@ -155,5 +155,44 @@ export const countReviews = async(id) => {
     `, [id]
   )
 
+  return result.rows[0].total_reviews;
+}
+
+export const createFile = async (title, type, url, public_id, size, module_id) => {
+  const result = await pool.query(
+    `
+      INSERT INTO file (title, type, url, public_id, size, uploaded_at, updated_at, is_active, module_id)
+      VALUES ($1, $2, $3, $4, $5, NOW(), NOW(), TRUE, $6)
+      RETURNING *;
+    `,
+    [title, type, url, public_id, size, module_id]
+  );
+
+  return result.rows[0];
+};
+
+export const countFiles = async(module_id) => {
+  const result = await pool.query(
+    `
+      SELECT COUNT(*) AS total_files
+      FROM file
+      WHERE module_id = $1;
+    `, [module_id]
+  )
+
+  return result.rows[0].total_files;
+}
+
+export const files = async(module_id, per_page, skip) => {
+  const result = await pool.query(
+    `
+      SELECT id, title, url, size, uploaded_at, is_active
+      FROM file
+      WHERE module_id = $1
+      ORDER BY uploaded_at
+      LIMIT $2 OFFSET $3;
+    `, [module_id, per_page, skip]
+  )
+
   return result.rows;
 }
