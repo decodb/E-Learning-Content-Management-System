@@ -20,6 +20,7 @@ import { AssessmentsComponent } from './pages/dashboards/lecturer/module/assessm
 import { ReviewsComponent } from './pages/dashboards/lecturer/module/reviews/reviews.component';
 import { StudentsComponent } from './pages/dashboards/lecturer/module/students/students.component';
 import { AddStudentComponent } from './pages/dashboards/lecturer/module/students/add-student/add-student.component';
+import { UploadFileComponent } from './pages/dashboards/lecturer/module/course-content/upload-file/upload-file.component';
 
 export const routes: Routes = [
     {
@@ -96,6 +97,12 @@ export const routes: Routes = [
                     {
                         path: 'content',
                         component: CourseContentComponent,
+                        children: [
+                            {
+                                path: 'upload-file',
+                                component: UploadFileComponent
+                            }
+                        ]
                     },
                     {
                         path: 'assessments',

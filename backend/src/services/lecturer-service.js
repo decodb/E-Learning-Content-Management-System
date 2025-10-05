@@ -186,7 +186,7 @@ export const countFiles = async(module_id) => {
 export const files = async(module_id, per_page, skip) => {
   const result = await pool.query(
     `
-      SELECT id, title, url, size, uploaded_at, is_active
+      SELECT id, title, type, url, size, uploaded_at, is_active
       FROM file
       WHERE module_id = $1
       ORDER BY uploaded_at

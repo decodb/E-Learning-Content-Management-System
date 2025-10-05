@@ -1,0 +1,6 @@
+<div class="file">
+    <a [href]="fileData().url" target="_blank" rel="noopener noreferrer">{{ fileData().title }}.{{ fileData().type.split('/')[1] }}</a>
+    <span class="size">{{ fileData().size }} MB</span>
+    <span class="date">{{ fileData().uploaded_at.split('T')[0] }}</span>
+    <span class="status">{{ fileData().is_active }}</span>
+</div>

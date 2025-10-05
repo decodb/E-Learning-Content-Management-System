@@ -41,7 +41,7 @@ select {
   font-size: 1rem;
   font-weight: 500;           /* slightly bold for clarity */
   letter-spacing: 0.5px;
-  color: var(--color-light-grey);
+  color: black;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   width: 100%;

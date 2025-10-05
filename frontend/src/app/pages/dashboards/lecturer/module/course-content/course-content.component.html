@@ -1,1 +1,35 @@
-<p>course-content works!</p>
+<div class="container">
+    <div class="header">
+        <h2>Students enrolled for this course</h2>
+        <a class="btn" routerLink="upload-file">
+            <ion-icon name="document-outline"></ion-icon>
+            <span>Upload file</span>
+        </a>
+    </div>
+    <div class="main">
+        <div class="header">
+            <span>Title</span>
+            <span>Size</span>
+            <span>Uploaded at</span>
+            <span>Status</span>
+        </div>
+        <div class="students">
+            @if(isLoading()) {
+                <div class="skeleton-container">
+                    <div class="skeleton skeleton-full"></div>
+                    <div class="skeleton skeleton-70"></div>
+                    <div class="skeleton skeleton-35"></div>
+                </div>
+            } @else {
+                @if(filesData().files.length === 0) {
+                    <p class="text">{{ errorMessage() }}</p>
+                } @else {
+                    @for(file of filesData().files; track file.id) {
+                        <app-file [fileData]="file" />
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+<router-outlet />

@@ -159,7 +159,7 @@ export const uploadFile = async(req, res, next) => {
 
         fs.unlinkSync(file.path);
         
-        return sendOk(res, newVideo, 'Video successfully uploaded. ')
+        return sendOk(res, newVideo, 'File successfully uploaded. ')
     } catch(error) {
         next(error);
     }
