@@ -1,6 +1,12 @@
 <div class="file">
     <a [href]="fileData().url" target="_blank" rel="noopener noreferrer">{{ fileData().title }}.{{ fileData().type.split('/')[1] }}</a>
-    <span class="size">{{ fileData().size }} MB</span>
+    @if(fileData().size.length === 8) {
+        <span class="size">{{ fileData().size.slice(0, 3) + '.' + fileData().size.slice(3, 5) }}MB</span>
+    }@else {
+        <span class="size">{{ fileData().size.slice(0, 2) + '.' + fileData().size.slice(3, 5) }}MB</span>
+    }
+
+    
     <span class="date">{{ fileData().uploaded_at.split('T')[0] }}</span>
     <span class="status">{{ fileData().is_active }}</span>
 </div>

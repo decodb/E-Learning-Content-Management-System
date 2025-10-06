@@ -40,3 +40,27 @@ export const course = async(req, res, next) => {
         next(error)
     }
 }
+
+export const files = async(req, res, next) => {
+    const courseId = req.params.id;
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    try {
+        const numberOfFiles = await StudentService.countFiles(courseId);
+        const numOfPages = Math.ceil(numberOfFiles / limit);
+
+        const courseFiles = await StudentService.files(courseId, limit, skip);
+        if(!courseFiles) return sendInternalServerError(res, 'Something went wrong. Please try again later. ');
+        if(courseFiles.length <= 0) return sendNotFound(res, 'No student has written a review. ');
+
+        const data =  { currentPage: page, totalFiles: Number(numberOfFiles),
+                        totalPages: numOfPages, files: courseFiles };
+
+        sendOk(res, data, 'Files successfully found. ');
+    } catch(error) {
+        next(error)
+    }
+}

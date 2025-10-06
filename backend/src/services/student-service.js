@@ -49,3 +49,29 @@ export const course = async(id) => {
 
   return result.rows[0]
 }
+
+export const countFiles = async(module_id) => {
+  const result = await pool.query(
+    `
+      SELECT COUNT(*) AS total_files
+      FROM file
+      WHERE module_id = $1;
+    `, [module_id]
+  )
+
+  return result.rows[0].total_files;
+}
+
+export const files = async(module_id, per_page, skip) => {
+  const result = await pool.query(
+    `
+      SELECT id, title, type, url, size, uploaded_at, is_active
+      FROM file
+      WHERE module_id = $1
+      ORDER BY uploaded_at
+      LIMIT $2 OFFSET $3;
+    `, [module_id, per_page, skip]
+  )
+
+  return result.rows;
+}

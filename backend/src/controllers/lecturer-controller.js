@@ -180,7 +180,7 @@ export const files = async(req, res, next) => {
         if(!courseFiles) return sendInternalServerError(res, 'Something went wrong. Please try again later. ');
         if(courseFiles.length <= 0) return sendNotFound(res, 'No student has written a review. ');
 
-        const data =  { currentPage: page, totalFiles: numberOfFiles,
+        const data =  { currentPage: page, totalFiles: Number(numberOfFiles),
                         totalPages: numOfPages, files: courseFiles };
 
         sendOk(res, data, 'Files successfully found. ');
