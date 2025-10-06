@@ -1,0 +1,40 @@
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem 2rem;
+}
+
+section .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+section .header .left h2 {
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+section .header .left p {
+    color: var(--color-light-grey);
+    font-size: 0.85rem;
+}
+
+section .header a {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+}
+
+section .main {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+section .main .loaders {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+}

@@ -1,5 +1,5 @@
 import * as StudentService from '../services/student-service.js'
-import { sendInternalServerError, sendNotFound, sendOk } from '../utils/http.util.js';
+import { sendBadRequest, sendInternalServerError, sendNotFound, sendOk } from '../utils/http.util.js';
 
 export const courses = async(req, res, next) => {
     const studentId = req.userInfo.id;
@@ -23,5 +23,20 @@ export const courses = async(req, res, next) => {
         sendOk(res, data, 'Courses successfully found. ');
     } catch(error) {
         next(error);
+    }
+}
+
+export const course = async(req, res, next) => {
+    const id = req.params.id;
+
+    try {
+        if(!id || isNaN(id)) return sendBadRequest(res, 'Which course? ');
+
+        const courseDetails = await StudentService.course(id);
+        if(!courseDetails) sendBadRequest(res, "The course requested isn't available. ");
+        
+        return sendOk(res, courseDetails, "The course requested is found. ");
+    } catch(error) {
+        next(error)
     }
 }

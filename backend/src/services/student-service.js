@@ -1,16 +1,28 @@
 import pool from "../config/db.js"
 
+export const coursesCount = async(student_id) => {
+    const result = await pool.query(
+        `
+            SELECT COUNT(*) AS total_courses
+            FROM course_enrollments
+            WHERE user_id = $1;
+        `, [student_id]
+    )
+
+    return result.rows[0].total_courses
+}
+
 export const courses = async(student_id, searchQuery, per_page, skip) => {
     const result = await pool.query(
         `
             SELECT 
-                c.name, 
-                c.code AS course_code, 
-                c.description, 
-                f.code AS category_code, 
-                u.first_name AS lecturer_firstName, 
-                u.last_name AS lecturer_lastName, 
-                u.image_url AS lecturer_profilePicture
+                c.id AS id,
+                c.name AS name, 
+                c.code AS code, 
+                c.description AS description,  
+                u.first_name AS first_name, 
+                u.last_name AS last_name, 
+                u.image_url AS image_url
             FROM (
                 SELECT * 
                 FROM course
@@ -27,14 +39,13 @@ export const courses = async(student_id, searchQuery, per_page, skip) => {
     return result.rows;
 }
 
-export const coursesCount = async(student_id) => {
-    const result = await pool.query(
-        `
-            SELECT COUNT(*) AS total_courses
-            FROM course_enrollments
-            WHERE user_id = $1;
-        `, [student_id]
-    )
+export const course = async(id) => {
+  const result = await pool.query(
+    `
+      SELECT * FROM course
+      WHERE id=$1
+    `, [id]
+  )
 
-    return result.rows[0].total_courses
+  return result.rows[0]
 }

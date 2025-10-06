@@ -27,6 +27,7 @@ import { StudentCoursesComponent } from './pages/dashboards/student/student-cour
 import { StudentCourseComponent } from './pages/dashboards/student/student-course/student-course.component';
 import { TestsComponent } from './pages/dashboards/student/student-course/tests/tests.component';
 import { FeedbacksComponent } from './pages/dashboards/student/student-course/feedbacks/feedbacks.component';
+import { UploadsComponent } from './pages/dashboards/student/student-course/uploads/uploads.component';
 
 export const routes: Routes = [
     {
@@ -150,6 +151,10 @@ export const routes: Routes = [
                 path: 'modules/:id',
                 component: StudentCourseComponent,
                 children: [
+                    {
+                        path: 'content',
+                        component: UploadsComponent
+                    },
                     {
                         path: 'tests',
                         component: TestsComponent, 

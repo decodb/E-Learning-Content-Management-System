@@ -1,1 +1,23 @@
-<p>student-courses works!</p>
+<section>
+    <div class="header">
+        <div class="left">
+            <h2>Courses</h2>
+            <p>View and manage courses from here</p>
+        </div>
+    </div>
+    <div class="main">
+        @if(isLoading()) {
+            <app-course-skeleton />
+            <app-course-skeleton />
+            <app-course-skeleton />
+        } @else {
+            @if(coursesData().courses.length === 0) {
+                <p>No courses found</p>
+            } @else {
+                @for(course of coursesData().courses; track course.name) {
+                    <app-course [course]="course" />
+                }
+            }
+        }
+    </div>
+</section>
