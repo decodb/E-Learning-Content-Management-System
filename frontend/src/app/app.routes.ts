@@ -21,6 +21,12 @@ import { ReviewsComponent } from './pages/dashboards/lecturer/module/reviews/rev
 import { StudentsComponent } from './pages/dashboards/lecturer/module/students/students.component';
 import { AddStudentComponent } from './pages/dashboards/lecturer/module/students/add-student/add-student.component';
 import { UploadFileComponent } from './pages/dashboards/lecturer/module/course-content/upload-file/upload-file.component';
+import { StudentComponent } from './pages/dashboards/student/student.component';
+import { studentGuard } from './guards/student/student.guard';
+import { StudentCoursesComponent } from './pages/dashboards/student/student-courses/student-courses.component';
+import { StudentCourseComponent } from './pages/dashboards/student/student-course/student-course.component';
+import { TestsComponent } from './pages/dashboards/student/student-course/tests/tests.component';
+import { FeedbacksComponent } from './pages/dashboards/student/student-course/feedbacks/feedbacks.component';
 
 export const routes: Routes = [
     {
@@ -127,6 +133,32 @@ export const routes: Routes = [
             {
                 path: 'profile',
                 component: ProfileComponent
+            }
+        ]
+    },
+    {
+        path: 'dashboard/student',
+        component: StudentComponent,
+        title: 'E-Learning | Student',
+        canActivate: [authGuard, studentGuard],
+        children: [
+            {
+                path: 'modules',
+                component: StudentCoursesComponent
+            },
+            {
+                path: 'modules/:id',
+                component: StudentCourseComponent,
+                children: [
+                    {
+                        path: 'tests',
+                        component: TestsComponent, 
+                    },
+                    {
+                        path: 'reviews',
+                        component: FeedbacksComponent
+                    }
+                ]
             }
         ]
     }

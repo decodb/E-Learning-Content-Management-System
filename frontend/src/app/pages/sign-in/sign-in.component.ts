@@ -49,7 +49,10 @@ export class SignInComponent {
           const loggedInUser = this.authService.getLoggedInUser();
           if(loggedInUser?.role === "Admin") {
             this.router.navigate(['/dashboard/admin'])
-          } else {
+          } else if (loggedInUser?.role === "Student") {
+            this.router.navigate(['/dashboard/student'])
+          }
+          else {
             this.router.navigate(['/dashboard/lecturer']);
           }
         },
