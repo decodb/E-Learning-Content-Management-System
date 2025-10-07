@@ -1,0 +1,14 @@
+a {
+    padding: 0.5rem 1rem;
+    text-align: center;
+    color: var(--color-light-grey);
+}
+
+a.active {
+    color: var(--color-orange);
+    border-bottom: 1px solid var(--color-orange);
+}
+
+a:nth-child(2) {
+    border-left: 1px solid var(--color-lighter-grey);
+}

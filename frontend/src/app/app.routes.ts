@@ -28,6 +28,8 @@ import { StudentCourseComponent } from './pages/dashboards/student/student-cours
 import { TestsComponent } from './pages/dashboards/student/student-course/tests/tests.component';
 import { FeedbacksComponent } from './pages/dashboards/student/student-course/feedbacks/feedbacks.component';
 import { UploadsComponent } from './pages/dashboards/student/student-course/uploads/uploads.component';
+import { AllComponent } from './pages/dashboards/student/student-course/feedbacks/all/all.component';
+import { MyFeedbacksComponent } from './pages/dashboards/student/student-course/feedbacks/my-feedbacks/my-feedbacks.component';
 
 export const routes: Routes = [
     {
@@ -161,7 +163,17 @@ export const routes: Routes = [
                     },
                     {
                         path: 'reviews',
-                        component: FeedbacksComponent
+                        component: FeedbacksComponent,
+                        children: [
+                            {
+                                path: 'all',
+                                component: AllComponent,
+                            },
+                            {
+                                path: 'my-reviews',
+                                component: MyFeedbacksComponent
+                            }
+                        ]
                     }
                 ]
             }

@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="reviews" [class.active]="errorMessage().length > 0">
+        @if(isLoading()) {
+            <app-course-skeleton />
+            <app-course-skeleton />
+            <app-course-skeleton />
+        } @else {
+            @if(reviewsData().reviews.length === 0 && errorMessage().length > 0) {
+                <p class="error">{{ errorMessage() }}</p>
+            } @else {
+                @for(review of reviewsData().reviews; track review.id) {
+                    <app-review [reviewData]="review"/>
+                }
+            }
+        }
+    </div>
+    <div class="pagination"></div>
+</div>

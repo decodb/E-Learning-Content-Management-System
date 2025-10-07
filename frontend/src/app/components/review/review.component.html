@@ -1,7 +1,11 @@
 <div class="review">
     <div class="header">
-        <h3>B. Mkhwanazi</h3>
-        <img src="images/user.png" alt="">
+        <h3>{{ reviewData().first_name.charAt(0) }}. {{ reviewData().last_name }}</h3>
+        @if(reviewData().image_url === null) {
+            <img src="images/user.png" alt="">
+        }@else {
+            <img [src]="reviewData().image_url" alt="">
+        }
     </div>
     <div class="stars">
         <ion-icon name="star"></ion-icon>
@@ -10,9 +14,9 @@
         <ion-icon name="star"></ion-icon>
         <ion-icon name="star"></ion-icon>
     </div>
-    <p>The module was well-structured and the concepts were explained clearly. I especially liked the practical examples, which made it easier to understand the theory. However, I think more interactive activities </p>
+    <p>{{ reviewData().comment }}</p>
     <div class="bottom">
-        <span>10/09/2025</span>
+        <span>{{ reviewData().created_at }}</span>
         <div class="dots"><ion-icon name="ellipsis-vertical-outline"></ion-icon></div>
     </div>
 </div>

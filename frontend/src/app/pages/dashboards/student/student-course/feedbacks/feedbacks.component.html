@@ -1,1 +1,15 @@
-<p>feedbacks works!</p>
+<div class="container">
+    <div class="header">
+        <h2>Hear what other students say about this course</h2>
+        <a class="btn" routerLink="upload-file">
+            <ion-icon name="document-outline"></ion-icon>
+            <span>Write a review</span>
+        </a>
+    </div>
+    <div class="links">
+        @for(link of studentLinks; track link.id) {
+            <app-review-link [inputData]="link"/>
+        }
+    </div>
+    <router-outlet />
+</div>
