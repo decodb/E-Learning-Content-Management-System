@@ -75,3 +75,89 @@ export const files = async(module_id, per_page, skip) => {
 
   return result.rows;
 }
+
+export const countReviews = async(id) => {
+  const result = await pool.query(
+    `
+      SELECT COUNT(*) AS total_reviews
+      FROM reviews r
+      INNER JOIN course_enrollments c ON c.id = r.enrollment_id
+      WHERE c.course_id = $1;
+    `, [id]
+  )
+
+  return result.rows[0].total_reviews;
+}
+
+export const reviews = async(course_id, per_page, skip) => {
+  const result = await pool.query(
+    `
+      SELECT r.id, r.rating, r.comment, r.created_at, u.first_name, u.last_name, u.image_url
+      FROM reviews r
+      INNER JOIN course_enrollments c ON c.id = r.enrollment_id
+      INNER JOIN users u ON u.id = c.user_id
+      WHERE u.role_id = 3 AND c.course_id = $1
+      ORDER BY r.created_at DESC
+      LIMIT $2 OFFSET $3;
+    `, [course_id ,per_page, skip]
+  )
+
+  return result.rows;
+}
+
+export const countMyReviews = async (student_id, course_id) => {
+  const result = await pool.query(
+    `
+      SELECT COUNT(*) AS total_reviews
+      FROM reviews r
+      INNER JOIN course_enrollments c ON c.id = r.enrollment_id
+      WHERE c.user_id = $1 AND c.course_id = $2;
+    `,
+    [student_id, course_id]
+  );
+
+  return result.rows[0].total_reviews;
+};
+
+export const myReviews = async(student_id,course_id, per_page, skip) => {
+  const result = await pool.query(
+    `
+      SELECT r.id, r.rating, r.comment, r.created_at, u.first_name, u.last_name, u.image_url
+      FROM reviews r
+      INNER JOIN course_enrollments c ON c.id = r.enrollment_id
+      INNER JOIN users u ON u.id = c.user_id
+      WHERE c.user_id = $1 AND c.course_id = $2
+      ORDER BY r.created_at DESC
+      LIMIT $3 OFFSET $4;
+    `, [student_id, course_id ,per_page, skip]
+  )
+
+  return result.rows;
+}
+
+export const enrollment = async (student_id, course_id) => {
+  const result = await pool.query(
+    `
+      SELECT id
+      FROM course_enrollments
+      WHERE user_id = $1 AND course_id = $2
+      LIMIT 1
+    `,
+    [student_id, course_id]
+  );
+
+  return result.rows.length > 0 ? result.rows[0].id : null;
+};
+
+export const createReview = async (rating, comment, enrollment_id) => {
+  const result = await pool.query(
+    `
+      INSERT INTO reviews (rating, comment, created_at, enrollment_id)
+      VALUES ($1, $2, NOW(), $3)
+      RETURNING *
+    `,
+    [rating, comment, enrollment_id]
+  );
+
+  return result.rows[0];
+};

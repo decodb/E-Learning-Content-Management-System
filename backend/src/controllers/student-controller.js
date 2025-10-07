@@ -64,3 +64,73 @@ export const files = async(req, res, next) => {
         next(error)
     }
 }
+
+export const reviews = async(req, res, next) => {
+    const courseId = req.params.id;
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    try {
+        const numberOfReviews = await StudentService.countReviews(courseId);
+        const numOfPages = Math.ceil(numberOfReviews / limit);
+
+        const studentsReviews = await StudentService.reviews(courseId, limit, skip);
+        if(!studentsReviews) return sendInternalServerError(res, 'Something went wrong. Please try again later. ');
+        if(studentsReviews.length <= 0) return sendNotFound(res, 'No student has written a review. ');
+
+        const data =  { currentPage: page, totalReviews: numberOfReviews,
+                        totalPages: numOfPages, reviews: studentsReviews };
+
+        return sendOk(res, data, 'Reviews successfully found. ');
+    } catch(error) {
+        next(error)
+    }
+}
+
+export const myReviews = async(req, res, next) => {
+    const studentId = req.userInfo.id;
+    const courseId = req.params.id;
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    try {
+        const numberOfReviews = await StudentService.countMyReviews(studentId, courseId);
+        const numOfPages = Math.ceil(numberOfReviews / limit);
+
+        const studentReviews = await StudentService.myReviews(studentId, courseId, limit, skip);
+        if(!studentReviews) return sendInternalServerError(res, 'Something went wrong. Please try again later. ');
+        if(studentReviews.length <= 0) return sendNotFound(res, 'You have not written a review for this course. ');
+
+        const data =  { currentPage: page, totalReviews: numberOfReviews,
+                        totalPages: numOfPages, reviews: studentReviews };
+
+        return sendOk(res, data, 'Reviews successfully found. ');
+    } catch(error) {
+        next(error);
+    }
+}
+
+export const createReview = async(req, res, next) => {
+    const { rating, comment } = req.body;
+    const studentId = req.userInfo.id;
+    const courseId = req.params.id;
+
+    try {
+        if (!rating || rating < 1 || rating > 5) return sendBadRequest(res, 'Rating must be between 1 and 5.');
+        if (!comment || typeof comment !== 'string' || comment.trim().length === 0) return sendBadRequest(res, 'Comment cannot be empty.');
+
+        const enrollmentId = await StudentService.enrollment(studentId, courseId);
+        if(!enrollmentId) return sendBadRequest(res, 'There is no such enrollment. ');
+
+        const newlyCreatedReview = await StudentService.createReview(rating, comment, enrollmentId);
+        if(!newlyCreatedReview) return sendInternalServerError(res, 'Something went wrong. ');
+
+        return sendOk(res, newlyCreatedReview, 'Review successfully submitted. ');
+    } catch(error) {
+        next(error)
+    }
+}
