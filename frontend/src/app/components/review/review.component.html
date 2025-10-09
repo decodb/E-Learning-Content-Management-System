@@ -14,9 +14,9 @@
         <ion-icon name="star"></ion-icon>
         <ion-icon name="star"></ion-icon>
     </div>
-    <p>{{ reviewData().comment }}</p>
+    <p class="truncate-multiline">{{ reviewData().comment }}</p>
     <div class="bottom">
-        <span>{{ reviewData().created_at }}</span>
+        <span>{{ reviewData().created_at.split("T")[0] }}</span>
         <div class="dots"><ion-icon name="ellipsis-vertical-outline"></ion-icon></div>
     </div>
 </div>

@@ -30,6 +30,7 @@ import { FeedbacksComponent } from './pages/dashboards/student/student-course/fe
 import { UploadsComponent } from './pages/dashboards/student/student-course/uploads/uploads.component';
 import { AllComponent } from './pages/dashboards/student/student-course/feedbacks/all/all.component';
 import { MyFeedbacksComponent } from './pages/dashboards/student/student-course/feedbacks/my-feedbacks/my-feedbacks.component';
+import { WriteReviewComponent } from './pages/dashboards/student/student-course/feedbacks/write-review/write-review.component';
 
 export const routes: Routes = [
     {
@@ -172,6 +173,10 @@ export const routes: Routes = [
                             {
                                 path: 'my-reviews',
                                 component: MyFeedbacksComponent
+                            },
+                            {
+                                path: 'write-review',
+                                component: WriteReviewComponent
                             }
                         ]
                     }

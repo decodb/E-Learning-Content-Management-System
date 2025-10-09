@@ -10,7 +10,7 @@
                 <p class="error">{{ errorMessage() }}</p>
             } @else {
                 @for(review of reviewsData().reviews; track review.id) {
-                    <app-review />
+                    <app-review [reviewData]="review" />
                 }
             }
         }

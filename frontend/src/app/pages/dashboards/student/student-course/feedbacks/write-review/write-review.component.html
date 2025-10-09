@@ -1,0 +1,24 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <p>
+            <label for="rating">Choose a rating:</label>
+            <select id="rating" name="rating" formControlName="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </p>
+        <p>
+            <label for="commonet">Comment</label>
+            <textarea name="comment" id="comment" rows="10" formControlName="comment"></textarea>
+        </p>
+        <button class="btn" type="submit" [disabled]="isLoading()">
+            Submit
+            @if(isLoading()) {
+                <span class="spinner"></span>
+            }
+        </button>
+    </form>
+</div>
